@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Filmoteca-DanielGarcia</string>
+    <string name="creadoPor">Creado por: Daniel García Pascual</string>
+    <string name="sitioWeb">IR AL SITIO WEB</string>
+    <string name="soporte">SOPORTE</string>
+    <string name="volver">VOLVER</string>
+</resources>
