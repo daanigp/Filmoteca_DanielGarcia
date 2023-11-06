@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/itemAcercaDe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/acercaDe" />
+    <item
+        android:id="@+id/itemNuevaPeli"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/NuevaPeli" />
+</menu>

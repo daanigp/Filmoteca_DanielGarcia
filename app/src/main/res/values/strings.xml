@@ -4,4 +4,6 @@
     <string name="sitioWeb">IR AL SITIO WEB</string>
     <string name="soporte">SOPORTE</string>
     <string name="volver">VOLVER</string>
+    <string name="acercaDe">Acerca de</string>
+    <string name="NuevaPeli">Añadir película</string>
 </resources>
