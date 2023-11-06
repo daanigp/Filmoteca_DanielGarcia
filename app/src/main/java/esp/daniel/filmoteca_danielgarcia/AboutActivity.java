@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class AboutActivity extends AppCompatActivity {
@@ -45,8 +46,7 @@ public class AboutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Redirigiendote a la página principal.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AboutActivity.this, FilmListActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
     }
