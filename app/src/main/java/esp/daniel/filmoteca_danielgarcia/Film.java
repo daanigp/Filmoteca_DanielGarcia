@@ -10,11 +10,11 @@ public class Film {
 
     //Tipos de géneros
     //Almacena el índice en el que se encuentra el valor de cada formato en el recurso arrays
-    public final int GENRE_ACTION = 0;
-    public final int GENRE_COMEDY = 1;
-    public final int GENRE_DRAMA = 2;
-    public final int GENRE_SCIFI = 3;
-    public final int GENRE_HORROR = 4;
+    public final static int GENRE_ACTION = 0;
+    public final static int GENRE_COMEDY = 1;
+    public final static int GENRE_DRAMA = 2;
+    public final static int GENRE_SCIFI = 3;
+    public final static int GENRE_HORROR = 4;
 
     //Propiedades de la clase
     private int imageResId;
@@ -27,8 +27,8 @@ public class Film {
     private String comments;
 
     //Constructor por defecto
-    public Film() {
-    }
+   // public Film() {
+   // }
 
     //Constructor por parámetros
     public Film(int imageResId, String title, String director, int year, int genre, int format, String imdbURL, String comments) {
@@ -131,12 +131,7 @@ public class Film {
     @Override
     public String toString() {
         return "Film{" +
-                "GENRE_ACTION=" + GENRE_ACTION +
-                ", GENRE_COMEDY=" + GENRE_COMEDY +
-                ", GENRE_DRAMA=" + GENRE_DRAMA +
-                ", GENRE_SCIFI=" + GENRE_SCIFI +
-                ", GENRE_HORROR=" + GENRE_HORROR +
-                ", imageResId=" + imageResId +
+                "imageResId=" + imageResId +
                 ", title='" + title + '\'' +
                 ", director='" + director + '\'' +
                 ", year=" + year +
