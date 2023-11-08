@@ -3,7 +3,6 @@ package esp.daniel.filmoteca_danielgarcia;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,7 +20,7 @@ public class FilmListActivity extends AppCompatActivity {
         FilmDataSource.Inizialize();
 
         ListView listaPeliculas = (ListView) findViewById(R.id.listaPeliculas);
-        FilmAdapter adapter = new FilmAdapter(this, R.layout.pelicula_personalizada, FilmDataSource.films);
+        FilmAdapter adapter = new FilmAdapter(this, R.layout.item_film, FilmDataSource.films);
 
         listaPeliculas.setAdapter(adapter);
 

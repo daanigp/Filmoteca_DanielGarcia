@@ -26,20 +26,20 @@
 
             <TextView
                 android:id="@+id/txtNombrePelicula"
-                android:layout_width="104dp"
-                android:layout_height="33dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="56dp"
+                android:layout_width="161dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="44dp"
                 android:text="TextView"
-                android:textSize="24sp"
+                android:textSize="20dp"
                 android:textStyle="bold|italic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imgPelicula"
-                android:layout_width="200dp"
-                android:layout_height="150dp"
+                android:layout_width="157dp"
+                android:layout_height="149dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -48,11 +48,12 @@
 
             <TextView
                 android:id="@+id/txtNombreDirector"
-                android:layout_width="146dp"
-                android:layout_height="32dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="32dp"
+                android:layout_width="179dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="28dp"
                 android:text="TextView"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
