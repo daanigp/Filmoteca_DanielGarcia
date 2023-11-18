@@ -16,7 +16,7 @@ public class FilmDataActivity extends AppCompatActivity {
     int position;
     ImageView imgView;
     TextView txtComentario, txtFormatoGenero, txtNumAnyo, txtNomDirector, txtNomPelicula;
-    Button btnWebIMDB;
+    Button btnWebIMDB, btnVolverMenu, btnEditar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,11 @@ public class FilmDataActivity extends AppCompatActivity {
         txtFormatoGenero = (TextView) findViewById(R.id.txtFormatoGenero);
         txtComentario = (TextView) findViewById(R.id.txtComentario);
         btnWebIMDB = (Button) findViewById(R.id.btnWebIMDB);
+        btnVolverMenu = (Button) findViewById(R.id.btnVolverMenu);
+        btnEditar = (Button) findViewById(R.id.btnEditar);
 
+
+        //Coger la posición de la película mediante el intent
         Intent intent = getIntent();
         position = intent.getIntExtra("FILM_POSITION", 0);
         imgView.setImageResource(FilmDataSource.films.get(position).getImageResId());
@@ -86,6 +90,23 @@ public class FilmDataActivity extends AppCompatActivity {
                 startActivity(intentWeb);
             }
         });
+
+        btnVolverMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Volviendo al menú principal", Toast.LENGTH_SHORT).show();
+                Intent intentVolverMenu = new Intent(FilmDataActivity.this, FilmListActivity.class);
+                startActivity(intentVolverMenu);
+            }
+        });
+
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Editar los datos de la Película", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
     }
