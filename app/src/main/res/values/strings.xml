@@ -9,4 +9,6 @@
     <string name="Director">Director:</string>
     <string name="Anyo">Año:</string>
     <string name="IMDB">VER EN IMDB</string>
+    <string name="volverInicio">VOLVER AL MENU</string>
+    <string name="editar">EDITAR PELICULA</string>
 </resources>

@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class FilmListActivity extends AppCompatActivity {
+public class FilmListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,7 @@ public class FilmListActivity extends AppCompatActivity {
 
         listaPeliculas.setAdapter(adapter);
 
-
+        listaPeliculas.setOnItemClickListener(this);
     }
 
     //Menú desplegable
@@ -50,5 +52,14 @@ public class FilmListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //Toast.makeText(this, "Has pulsado sobre la pelicula -> " + FilmDataSource.films.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(FilmListActivity.this, FilmDataActivity.class);
+        intent.putExtra("FILM_POSITION", position);
+        startActivity(intent);
     }
 }

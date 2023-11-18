@@ -16,12 +16,12 @@ import java.util.ArrayList;
 public class FilmAdapter extends ArrayAdapter<Film> {
 
     private int mResource;
-    private ArrayList<Film> misCiudades;
+    private ArrayList<Film> peliculas;
 
     public FilmAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Film> objects) {
         super(context, resource, objects);
         mResource = resource;
-        misCiudades = objects;
+        peliculas = objects;
     }
 
     @NonNull
@@ -32,11 +32,11 @@ public class FilmAdapter extends ArrayAdapter<Film> {
 
         TextView txtNombrePelicula = miFila.findViewById(R.id.txtNombrePelicula);
         TextView txtNombreDirector = miFila.findViewById(R.id.txtNombreDirector);
-        ImageView imgCiudad = miFila.findViewById(R.id.imgPelicula);
+        ImageView imgPelicula = miFila.findViewById(R.id.imgPelicula);
 
-        txtNombrePelicula.setText(misCiudades.get(position).getTitle());
-        txtNombreDirector.setText(misCiudades.get(position).getDirector());
-        imgCiudad.setImageResource(misCiudades.get(position).getImageResId());
+        txtNombrePelicula.setText(peliculas.get(position).getTitle());
+        txtNombreDirector.setText(peliculas.get(position).getDirector());
+        imgPelicula.setImageResource(peliculas.get(position).getImageResId());
 
         return miFila;
     }
