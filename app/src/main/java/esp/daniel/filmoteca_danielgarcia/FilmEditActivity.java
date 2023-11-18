@@ -72,7 +72,40 @@ public class FilmEditActivity extends AppCompatActivity {
             //Comentario
         txtEditComentario = (EditText) findViewById(R.id.txtEditComentario);
         txtEditComentario.setText(FilmDataSource.films.get(posicion).getComments().toString());
-        
+
+        //Spinners (los 2)
+            //Generos
+        spnGenero = (Spinner) findViewById(R.id.spnGenero);
+        spnGenero.setSelection(FilmDataSource.films.get(posicion).getGenre());
+
+            //Formatos
+        spnFormato = (Spinner) findViewById(R.id.spnFormato);
+        spnFormato.setSelection(FilmDataSource.films.get(posicion).getFormat());
+
+        //Botón guardar
+        btnGuardar = (Button) findViewById(R.id.btnGuardar);
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Cambios aplicados correctamente", Toast.LENGTH_SHORT).show();
+                FilmDataSource.films.get(posicion).setTitle(txtEditTitulo.getText().toString());
+                setResult(RESULT_OK, null);
+                finish();
+            }
+        });
+
+
+        //Botón cancelar
+        btnCancelar = (Button) findViewById(R.id.btnCancelar);
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Los cambios han sido cancelados", Toast.LENGTH_SHORT).show();
+                Intent intentCancel = new Intent();
+                setResult(RESULT_CANCELED, intentCancel);
+                finish();
+            }
+        });
 
 
     }

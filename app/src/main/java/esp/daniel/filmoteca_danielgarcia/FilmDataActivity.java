@@ -1,5 +1,6 @@
 package esp.daniel.filmoteca_danielgarcia;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -110,8 +111,19 @@ public class FilmDataActivity extends AppCompatActivity {
                 startActivityForResult(intentFilmEditActivity, EDIT_OPTION);
             }
         });
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == EDIT_OPTION){
+            if (resultCode == RESULT_OK){
+                txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
 
+            } else {
+                Toast.makeText(getApplicationContext(), "Los cambios han sido cancelados", Toast.LENGTH_SHORT).show();
+            }
+        }
 
     }
 }
