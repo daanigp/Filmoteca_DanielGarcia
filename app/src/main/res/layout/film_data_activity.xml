@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FilmDataActivity">
+
+    <TextView
+        android:id="@+id/txtComentario"
+        android:layout_width="361dp"
+        android:layout_height="109dp"
+        android:text="TextView"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.127" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="412dp"
+        android:layout_height="329dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="330dp">
+
+            <ImageView
+                android:id="@+id/imgPeli"
+                android:layout_width="159dp"
+                android:layout_height="222dp"
+                android:src="@tools:sample/avatars"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.063"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.222" />
+
+            <TextView
+                android:id="@+id/txtAnyo"
+                android:layout_width="157dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="12dp"
+                android:text="@string/Anyo"
+                android:textSize="10dp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.044"
+                app:layout_constraintStart_toEndOf="@+id/imgPeli"
+                app:layout_constraintTop_toBottomOf="@+id/txtNomDirector"
+                app:layout_constraintVertical_bias="0.066" />
+
+            <TextView
+                android:id="@+id/txtNumAnyo"
+                android:layout_width="88dp"
+                android:layout_height="22dp"
+                android:text="TextView"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toEndOf="@+id/imgPeli"
+                app:layout_constraintTop_toBottomOf="@+id/txtAnyo"
+                app:layout_constraintVertical_bias="0.045" />
+
+            <TextView
+                android:id="@+id/txtDirector"
+                android:layout_width="157dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="12dp"
+                android:text="@string/Director"
+                android:textSize="10dp"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.044"
+                app:layout_constraintStart_toEndOf="@+id/imgPeli"
+                app:layout_constraintTop_toBottomOf="@+id/txtNomPelicula"
+                app:layout_constraintVertical_bias="0.03" />
+
+            <TextView
+                android:id="@+id/txtNomDirector"
+                android:layout_width="201dp"
+                android:layout_height="31dp"
+                android:text="TextView"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.416"
+                app:layout_constraintStart_toEndOf="@+id/imgPeli"
+                app:layout_constraintTop_toBottomOf="@+id/txtDirector"
+                app:layout_constraintVertical_bias="0.036" />
+
+            <TextView
+                android:id="@+id/txtFormatoGenero"
+                android:layout_width="205dp"
+                android:layout_height="32dp"
+                android:text="TextView"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.437"
+                app:layout_constraintStart_toEndOf="@+id/imgPeli"
+                app:layout_constraintTop_toBottomOf="@+id/txtNumAnyo"
+                app:layout_constraintVertical_bias="0.096" />
+
+            <Button
+                android:id="@+id/btnWebIMDB"
+                android:layout_width="171dp"
+                android:layout_height="41dp"
+                android:text="@string/IMDB"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.408"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtFormatoGenero"
+                app:layout_constraintVertical_bias="0.555" />
+
+            <TextView
+                android:id="@+id/txtNomPelicula"
+                android:layout_width="203dp"
+                android:layout_height="44dp"
+                android:text="TextView"
+                android:textSize="10dp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.406"
+                app:layout_constraintStart_toEndOf="@+id/imgPeli"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.118" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

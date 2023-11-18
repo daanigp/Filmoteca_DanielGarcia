@@ -31,7 +31,7 @@ public class AboutActivity extends AppCompatActivity {
         btnSoporte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Enviando correo electronico...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Enviando correo electrónico...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Soporte Filmoteca.");

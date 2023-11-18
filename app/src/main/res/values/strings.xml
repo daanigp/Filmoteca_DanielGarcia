@@ -6,4 +6,7 @@
     <string name="volver">VOLVER</string>
     <string name="acercaDe">Acerca de</string>
     <string name="NuevaPeli">Añadir película</string>
+    <string name="Director">Director:</string>
+    <string name="Anyo">Año:</string>
+    <string name="IMDB">VER EN IMDB</string>
 </resources>
