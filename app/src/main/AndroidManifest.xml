@@ -13,13 +13,13 @@
         android:theme="@style/Theme.FilmotecaDanielGarcia"
         tools:targetApi="31">
         <activity
+            android:name=".FilmEditActivity"
+            android:exported="false" />
+        <activity
             android:name=".FilmDataActivity"
             android:exported="false" />
         <activity
             android:name=".AboutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".FilmListActivity"

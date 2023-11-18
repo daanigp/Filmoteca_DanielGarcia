@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 public class FilmDataActivity extends AppCompatActivity {
 
+    private static final int EDIT_OPTION = 16;
     int position;
     ImageView imgView;
     TextView txtComentario, txtFormatoGenero, txtNumAnyo, txtNomDirector, txtNomPelicula;
@@ -104,6 +105,9 @@ public class FilmDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Editar los datos de la Película", Toast.LENGTH_SHORT).show();
+                Intent intentFilmEditActivity = new Intent(FilmDataActivity.this, FilmEditActivity.class);
+                intentFilmEditActivity.putExtra("FILM_POSITION", position);
+                startActivityForResult(intentFilmEditActivity, EDIT_OPTION);
             }
         });
 
