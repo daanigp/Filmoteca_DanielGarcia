@@ -95,5 +95,95 @@ public class FilmDataSource {
             "Después de que Thanos haya aniquilado a la mitad del universo, los Vengadores supervivientes deben hacer todo lo posible por deshacer tal atrocidad."
         ));
 
+        films.add(new Film(
+                R.drawable.ted,
+                "Ted",
+                "Seth MacFarlane",
+                2012,
+                Film.GENRE_COMEDY,
+                Film.FORMAT_DVD,
+                "https://www.imdb.com/title/tt1637725/?ref_=nv_sr_srsg_3_tt_4_nm_4_q_ted",
+                "John Bennett, un hombre cuyo deseo de la infancia de dar vida a su oso de peluche se hizo realidad, ahora debe decidir entre mantener la relación con el oso, Ted, o su novia, Lori."
+        ));
+
+        films.add(new Film(
+                R.drawable.ted2,
+                "Ted 2",
+                "Seth MacFarlane",
+                2015,
+                Film.GENRE_COMEDY,
+                Film.FORMAT_DIGITAL,
+                "https://www.imdb.com/title/tt2637276/?ref_=nv_sr_srsg_8_tt_4_nm_4_q_ted",
+                "La pareja de recién casados Ted y Tami-Lynn quieren tener un bebé, pero para poder ser padre, Ted tendrá que demostrar que es una persona en un tribunal de justicia."
+        ));
+
+        films.add(new Film(
+                R.drawable.oppenheimer,
+                "Oppenheimer",
+                "Christopher Nolan",
+                2023,
+                Film.GENRE_DRAMA,
+                Film.FORMAT_DIGITAL,
+                "https://www.imdb.com/title/tt15398776/?ref_=chttp_i_57",
+                "La historia del científico J. Robert Oppenheimer y su rol en el desarrollo de la bomba atómica."
+        ));
+
+        films.add(new Film(
+                R.drawable.en_busca_del_arca_perdida,
+                "En busca del arca perdida",
+                "Steven Spielberg",
+                1981,
+                Film.GENRE_ACTION,
+                Film.FORMAT_BLURAY,
+                "https://www.imdb.com/title/tt0082971/?ref_=chttp_t_58",
+                "En 1936, el arqueólogo y aventurero Indiana Jones es contratado por el Gobierno de Estados Unidos para encontrar el Arca de la Alianza, antes de que los nazis de Adolf Hitler puedan obtener sus impresionantes poderes."
+        ));
+
+        films.add(new Film(
+                R.drawable.loca_academia_de_policia,
+                "Loca academia de policia",
+                "Hugh Wilson",
+                1984,
+                Film.GENRE_COMEDY,
+                Film.FORMAT_BLURAY,
+                "https://www.imdb.com/title/tt0087928/?ref_=nv_sr_srsg_0_tt_8_nm_0_q_loca%2520academia%2520de%2520policia",
+                "Un grupo de inadaptados de buen corazón, pero incompetentes, entra en la academia de policía, pero los instructores de la misma no van a soportar sus bromas."
+
+        ));
+
+        films.add(new Film(
+                R.drawable.saw,
+                "Saw",
+                "James Wan",
+                2004,
+                Film.GENRE_HORROR,
+                Film.FORMAT_DVD,
+                "https://www.imdb.com/title/tt0387564/?ref_=nv_sr_srsg_3_tt_8_nm_0_q_saw",
+                "Dos extraños, que se despiertan en una habitación sin recordar cómo llegaron allí, pronto descubren que son peones en un juego mortal perpetrado por un famoso asesino en serie."
+        ));
+
+        films.add(new Film(
+                R.drawable.jurassic_park,
+                "Jurassic Park",
+                "Steven Spielberg",
+                1993,
+                Film.GENRE_SCIFI,
+                Film.FORMAT_BLURAY,
+                "https://www.imdb.com/title/tt0107290/?ref_=chttp_t_143",
+                "Gracias al ADN fosilizado en ámbar, John Hammond da vida a varias especies de dinosaurios y crea Jurassic Park, un parque temático en una isla de Costa Rica. Pero lo que parecía un sueño se convierte rápidamente en pesadilla."
+        ));
+
+        films.add(new Film(
+                R.drawable.jurassic_world,
+                "Jurassic World",
+                "Colin Trevorrow",
+                2015,
+                Film.GENRE_ACTION,
+                Film.FORMAT_DIGITAL,
+                "https://www.imdb.com/title/tt0369610/?ref_=nv_sr_srsg_3_tt_8_nm_0_q_jurassic",
+                "Un nuevo parque temático, construido en el emplazamiento original de Jurassic Park, crea un dinosaurio híbrido modificado genéticamente, el Indominus rex, que escapa a la contención y se lanza a la matanza."
+
+        ));
+
     }
 }
