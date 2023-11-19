@@ -95,15 +95,18 @@ public class FilmDataActivity extends AppCompatActivity {
             }
         });
 
+        //Botón volver al menú
         btnVolverMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Volviendo al menú principal", Toast.LENGTH_SHORT).show();
-                Intent intentVolverMenu = new Intent(FilmDataActivity.this, FilmListActivity.class);
-                startActivity(intentVolverMenu);
+                Intent intentCancel = new Intent();
+                setResult(RESULT_CANCELED, intentCancel);
+                finish();
             }
         });
 
+        //Botón guardar
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

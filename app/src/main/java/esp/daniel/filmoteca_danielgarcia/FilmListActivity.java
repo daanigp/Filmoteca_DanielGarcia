@@ -1,6 +1,7 @@
 package esp.daniel.filmoteca_danielgarcia;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,6 +15,10 @@ import android.widget.Toast;
 
 public class FilmListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    private static int DATA_FILM = 2;
+    FilmAdapter adapter;
+    ListView listaPeliculas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,12 +26,12 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
         FilmDataSource.Inizialize();
 
-        ListView listaPeliculas = (ListView) findViewById(R.id.listaPeliculas);
-        FilmAdapter adapter = new FilmAdapter(this, R.layout.item_film, FilmDataSource.films);
+        listaPeliculas = (ListView) findViewById(R.id.listaPeliculas);
+        adapter = new FilmAdapter(this, R.layout.item_film, FilmDataSource.films);
 
         listaPeliculas.setAdapter(adapter);
-
         listaPeliculas.setOnItemClickListener(this);
+
     }
 
     //Menú desplegable
@@ -54,12 +59,24 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         return super.onOptionsItemSelected(item);
     }
 
-
+    //Cuando se pulsa sobre una película
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //Toast.makeText(this, "Has pulsado sobre la pelicula -> " + FilmDataSource.films.get(position).getTitle(), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(FilmListActivity.this, FilmDataActivity.class);
         intent.putExtra("FILM_POSITION", position);
-        startActivity(intent);
+        startActivityForResult(intent, DATA_FILM);
+    }
+
+    //Para que cuando se pulse en el botón de volver en la actividad FilmDataActivity,
+    //Se actualicen los datos a los datos que se han cambiado, si esque hay alguno cambiado/editado.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == DATA_FILM){
+            if (resultCode == RESULT_CANCELED){
+                listaPeliculas.setAdapter(adapter);
+                listaPeliculas.setOnItemClickListener(this);
+            }
+        }
     }
 }

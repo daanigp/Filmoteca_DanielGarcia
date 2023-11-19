@@ -27,8 +27,8 @@ public class Film {
     private String comments;
 
     //Constructor por defecto
-   // public Film() {
-   // }
+    public Film() {
+    }
 
     //Constructor por parámetros
     public Film(int imageResId, String title, String director, int year, int genre, int format, String imdbURL, String comments) {
