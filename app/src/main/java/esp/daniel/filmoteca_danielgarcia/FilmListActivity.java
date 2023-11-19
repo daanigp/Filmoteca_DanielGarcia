@@ -13,6 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.Format;
+
 public class FilmListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static int DATA_FILM = 2;
@@ -48,11 +50,25 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         switch (id){
             case R.id.itemAcercaDe:
                 Toast.makeText(getApplicationContext(), "Has pulsado sobre Acerca de.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(FilmListActivity.this, AboutActivity.class);
-                startActivity(intent);
+                Intent intentAbout = new Intent(FilmListActivity.this, AboutActivity.class);
+                startActivity(intentAbout);
                 return true;
             case R.id.itemNuevaPeli:
                 Toast.makeText(getApplicationContext(), "Has pulsado sobre Añadir película.", Toast.LENGTH_SHORT).show();
+                Film pelicula = new Film(
+                        R.drawable.icono_img,
+                        "Agregar película",
+                        "Agregar director",
+                        0000,
+                        Film.FORMAT_DVD,
+                        Film.GENRE_ACTION,
+                        "Agregar url",
+                        "Agregar comentario"
+
+                );
+                FilmDataSource.films.add(pelicula);
+                listaPeliculas.setAdapter(adapter);
+                listaPeliculas.setOnItemClickListener(this);
                 return true;
         }
 
