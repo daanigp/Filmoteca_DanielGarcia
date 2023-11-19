@@ -116,9 +116,11 @@ public class FilmDataActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == EDIT_OPTION){
+        if (requestCode == EDIT_OPTION){
             if (resultCode == RESULT_OK){
+                Toast.makeText(getApplicationContext(), "Cambios aplicados correctamente", Toast.LENGTH_SHORT).show();
                 txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
+                txtNomDirector.setText(FilmDataSource.films.get(position).getDirector().toString());
 
             } else {
                 Toast.makeText(getApplicationContext(), "Los cambios han sido cancelados", Toast.LENGTH_SHORT).show();

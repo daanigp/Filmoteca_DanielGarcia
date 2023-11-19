@@ -87,8 +87,16 @@ public class FilmEditActivity extends AppCompatActivity {
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Cambios aplicados correctamente", Toast.LENGTH_SHORT).show();
                 FilmDataSource.films.get(posicion).setTitle(txtEditTitulo.getText().toString());
+                FilmDataSource.films.get(posicion).setDirector(txtEditDirector.getText().toString());
+                int year = Integer.parseInt(txtEditAnyo.getText().toString());
+                FilmDataSource.films.get(posicion).setYear(year);
+                /*int genero = Integer.parseInt(spnGenero.getSelectedItem().toString());
+                FilmDataSource.films.get(posicion).setGenre(genero);
+                int formato = Integer.parseInt(spnFormato.getSelectedItem().toString());
+                FilmDataSource.films.get(posicion).setFormat(formato);*/
+                FilmDataSource.films.get(posicion).setImdbURL(txtEditWeb.getText().toString());
+                FilmDataSource.films.get(posicion).setComments(txtEditComentario.getText().toString());
                 setResult(RESULT_OK, null);
                 finish();
             }
@@ -100,7 +108,6 @@ public class FilmEditActivity extends AppCompatActivity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Los cambios han sido cancelados", Toast.LENGTH_SHORT).show();
                 Intent intentCancel = new Intent();
                 setResult(RESULT_CANCELED, intentCancel);
                 finish();
