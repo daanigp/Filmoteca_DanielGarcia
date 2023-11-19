@@ -41,7 +41,7 @@
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.089"
+                app:layout_constraintHorizontal_bias="0.103"
                 app:layout_constraintStart_toEndOf="@+id/imgPeli"
                 app:layout_constraintTop_toBottomOf="@+id/txtAnyo"
                 app:layout_constraintVertical_bias="0.0" />
@@ -56,20 +56,20 @@
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.015"
+                app:layout_constraintHorizontal_bias="0.046"
                 app:layout_constraintStart_toEndOf="@+id/imgPeli"
                 app:layout_constraintTop_toBottomOf="@+id/txtNomPelicula"
-                app:layout_constraintVertical_bias="0.002" />
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/txtNomDirector"
-                android:layout_width="187dp"
-                android:layout_height="56dp"
+                android:layout_width="185dp"
+                android:layout_height="45dp"
                 android:text="TextView"
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.282"
+                app:layout_constraintHorizontal_bias="0.312"
                 app:layout_constraintStart_toEndOf="@+id/imgPeli"
                 app:layout_constraintTop_toBottomOf="@+id/txtDirector"
                 app:layout_constraintVertical_bias="0.0" />
@@ -82,7 +82,7 @@
                 android:textSize="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.175"
+                app:layout_constraintHorizontal_bias="0.202"
                 app:layout_constraintStart_toEndOf="@+id/imgPeli"
                 app:layout_constraintTop_toBottomOf="@+id/txtNumAnyo"
                 app:layout_constraintVertical_bias="0.0" />
@@ -97,7 +97,7 @@
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.015"
+                app:layout_constraintHorizontal_bias="0.046"
                 app:layout_constraintStart_toEndOf="@+id/imgPeli"
                 app:layout_constraintTop_toBottomOf="@+id/txtNomDirector"
                 app:layout_constraintVertical_bias="0.0" />
@@ -106,27 +106,30 @@
                 android:id="@+id/btnWebIMDB"
                 android:layout_width="194dp"
                 android:layout_height="58dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:text="@string/IMDB"
                 android:textSize="16dp"
+                app:cornerRadius="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtFormatoGenero"
-                app:layout_constraintVertical_bias="0.151" />
+                app:layout_constraintVertical_bias="0.264" />
 
             <TextView
                 android:id="@+id/txtNomPelicula"
-                android:layout_width="187dp"
-                android:layout_height="70dp"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
                 android:text="TextView"
                 android:textSize="16dp"
                 android:textStyle="bold|italic"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.282"
+                app:layout_constraintHorizontal_bias="0.27"
                 app:layout_constraintStart_toEndOf="@+id/imgPeli"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.1" />
+                app:layout_constraintVertical_bias="0.102" />
 
             <TextView
                 android:id="@+id/txtComentario"

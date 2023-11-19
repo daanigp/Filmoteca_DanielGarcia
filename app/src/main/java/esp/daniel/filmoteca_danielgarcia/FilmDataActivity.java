@@ -15,7 +15,8 @@ import android.widget.Toast;
 public class FilmDataActivity extends AppCompatActivity {
 
     private static final int EDIT_OPTION = 16;
-    int position;
+    String anyo, formatoGenero;
+    int position, genero, formato;
     ImageView imgView;
     TextView txtComentario, txtFormatoGenero, txtNumAnyo, txtNomDirector, txtNomPelicula;
     Button btnWebIMDB, btnVolverMenu, btnEditar;
@@ -43,12 +44,12 @@ public class FilmDataActivity extends AppCompatActivity {
         txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
         txtNomDirector.setText(FilmDataSource.films.get(position).getDirector().toString());
 
-        String anyo = String.valueOf(FilmDataSource.films.get(position).getYear());
+        anyo = String.valueOf(FilmDataSource.films.get(position).getYear());
         txtNumAnyo.setText(anyo);
 
-        String formatoGenero = "";
+        formatoGenero = "";
 
-        int formato = FilmDataSource.films.get(position).getFormat();
+        formato = FilmDataSource.films.get(position).getFormat();
         switch (formato){
             case 0:
                 formatoGenero = "DVD, ";
@@ -61,7 +62,7 @@ public class FilmDataActivity extends AppCompatActivity {
                 break;
         }
 
-        int genero = FilmDataSource.films.get(position).getGenre();
+        genero = FilmDataSource.films.get(position).getGenre();
         switch (genero){
             case 0:
                 formatoGenero = formatoGenero + "Action";
@@ -84,6 +85,7 @@ public class FilmDataActivity extends AppCompatActivity {
 
         txtComentario.setText(FilmDataSource.films.get(position).getComments().toString());
 
+        //Botón web IMDB
         btnWebIMDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +123,52 @@ public class FilmDataActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Cambios aplicados correctamente", Toast.LENGTH_SHORT).show();
                 txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
                 txtNomDirector.setText(FilmDataSource.films.get(position).getDirector().toString());
+                anyo = String.valueOf(FilmDataSource.films.get(position).getYear());
+                txtNumAnyo.setText(anyo);
+                btnWebIMDB.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "Redirigiendote a la página de IMDB de la película...", Toast.LENGTH_SHORT).show();
+                        Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(FilmDataSource.films.get(position).getImdbURL()));
+                        startActivity(intentWeb);
+                    }
+                });
+                txtComentario.setText(FilmDataSource.films.get(position).getComments().toString());
+
+                formatoGenero = "";
+                formato = FilmDataSource.films.get(position).getFormat();
+                switch (formato){
+                    case 0:
+                        formatoGenero = "DVD, ";
+                        break;
+                    case 1:
+                        formatoGenero = "Bluray, ";
+                        break;
+                    case 2:
+                        formatoGenero = "Digital, ";
+                        break;
+                }
+
+                genero = FilmDataSource.films.get(position).getGenre();
+                switch (genero){
+                    case 0:
+                        formatoGenero = formatoGenero + "Action";
+                        break;
+                    case 1:
+                        formatoGenero = formatoGenero + "Comedy";
+                        break;
+                    case 2:
+                        formatoGenero = formatoGenero + "Drama";
+                        break;
+                    case 3:
+                        formatoGenero = formatoGenero + "Scifi";
+                        break;
+                    case 4:
+                        formatoGenero = formatoGenero + "Horror";
+                        break;
+                }
+                txtFormatoGenero.setText(formatoGenero);
+
 
             } else {
                 Toast.makeText(getApplicationContext(), "Los cambios han sido cancelados", Toast.LENGTH_SHORT).show();

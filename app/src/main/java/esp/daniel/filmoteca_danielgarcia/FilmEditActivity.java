@@ -91,12 +91,11 @@ public class FilmEditActivity extends AppCompatActivity {
                 FilmDataSource.films.get(posicion).setDirector(txtEditDirector.getText().toString());
                 int year = Integer.parseInt(txtEditAnyo.getText().toString());
                 FilmDataSource.films.get(posicion).setYear(year);
-                /*int genero = Integer.parseInt(spnGenero.getSelectedItem().toString());
-                FilmDataSource.films.get(posicion).setGenre(genero);
-                int formato = Integer.parseInt(spnFormato.getSelectedItem().toString());
-                FilmDataSource.films.get(posicion).setFormat(formato);*/
                 FilmDataSource.films.get(posicion).setImdbURL(txtEditWeb.getText().toString());
                 FilmDataSource.films.get(posicion).setComments(txtEditComentario.getText().toString());
+                FilmDataSource.films.get(posicion).setFormat(spnFormato.getSelectedItemPosition());
+                FilmDataSource.films.get(posicion).setGenre(spnGenero.getSelectedItemPosition());
+
                 setResult(RESULT_OK, null);
                 finish();
             }

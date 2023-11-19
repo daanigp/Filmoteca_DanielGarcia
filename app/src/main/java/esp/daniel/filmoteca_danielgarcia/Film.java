@@ -4,17 +4,17 @@ public class Film {
 
     //Tipos de formatos
     //Almacena el índice en el que se encuentra el valor de cada formato en el recurso arrays.
-    public final static int FORMAT_DVD = 0;
-    public final static int FORMAT_BLURAY = 1;
-    public final static int FORMAT_DIGITAL = 2;
+    public static int FORMAT_DVD = 0;
+    public static int FORMAT_BLURAY = 1;
+    public static int FORMAT_DIGITAL = 2;
 
     //Tipos de géneros
     //Almacena el índice en el que se encuentra el valor de cada formato en el recurso arrays
-    public final static int GENRE_ACTION = 0;
-    public final static int GENRE_COMEDY = 1;
-    public final static int GENRE_DRAMA = 2;
-    public final static int GENRE_SCIFI = 3;
-    public final static int GENRE_HORROR = 4;
+    public static int GENRE_ACTION = 0;
+    public static int GENRE_COMEDY = 1;
+    public static int GENRE_DRAMA = 2;
+    public static int GENRE_SCIFI = 3;
+    public static int GENRE_HORROR = 4;
 
     //Propiedades de la clase
     private int imageResId;
