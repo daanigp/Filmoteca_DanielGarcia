@@ -9,13 +9,14 @@
     <string name="NuevaPeli">Add film</string>
     <string name="Director">Director:</string>
     <string name="Anyo">Year:</string>
-    <string name="IMDB">SEE IN IMDB</string>
+    <string name="IMDB">SEE IN WEBSITE</string>
     <string name="volverInicio">BACK TO MENU</string>
     <string name="editar">EDIT FILM</string>
     <string name="capturarImg">CAPTURE IMAGE</string>
     <string name="selectImg">SELECT IMAGE</string>
     <string name="cancelar">CANCEL</string>
     <string name="guardar">SAVE</string>
+    <string name="eliminar">Delete</string>
 
     <string-array name="generos_array">
         <item>Action</item>

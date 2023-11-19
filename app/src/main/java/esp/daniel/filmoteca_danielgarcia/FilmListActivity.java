@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,7 @@ import java.text.Format;
 public class FilmListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static int DATA_FILM = 2;
-    FilmAdapter adapter;
+    FilmAdapter filmAdapter;
     ListView listaPeliculas;
 
     @Override
@@ -29,10 +30,13 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         FilmDataSource.Inizialize();
 
         listaPeliculas = (ListView) findViewById(R.id.listaPeliculas);
-        adapter = new FilmAdapter(this, R.layout.item_film, FilmDataSource.films);
+        filmAdapter = new FilmAdapter(this, R.layout.item_film, FilmDataSource.films);
 
-        listaPeliculas.setAdapter(adapter);
+        listaPeliculas.setAdapter(filmAdapter);
         listaPeliculas.setOnItemClickListener(this);
+
+        //Menú contextual
+        registerForContextMenu(listaPeliculas);
 
     }
 
@@ -49,11 +53,13 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         int id = item.getItemId();
         switch (id){
             case R.id.itemAcercaDe:
+                //Nos lleva a la actividad de AboutActivity
                 Toast.makeText(getApplicationContext(), "Has pulsado sobre Acerca de.", Toast.LENGTH_SHORT).show();
                 Intent intentAbout = new Intent(FilmListActivity.this, AboutActivity.class);
                 startActivity(intentAbout);
                 return true;
             case R.id.itemNuevaPeli:
+                //Añade una nueva película al ArrayList
                 Toast.makeText(getApplicationContext(), "Has pulsado sobre Añadir película.", Toast.LENGTH_SHORT).show();
                 Film pelicula = new Film(
                         R.drawable.icono_img,
@@ -67,8 +73,9 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
                 );
                 FilmDataSource.films.add(pelicula);
-                listaPeliculas.setAdapter(adapter);
-                listaPeliculas.setOnItemClickListener(this);
+                //listaPeliculas.setAdapter(filmAdapter);
+                //listaPeliculas.setOnItemClickListener(this);
+                filmAdapter.notifyDataSetChanged();
                 return true;
         }
 
@@ -90,9 +97,33 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DATA_FILM){
             if (resultCode == RESULT_CANCELED){
-                listaPeliculas.setAdapter(adapter);
-                listaPeliculas.setOnItemClickListener(this);
+                //listaPeliculas.setAdapter(filmAdapter);
+                //listaPeliculas.setOnItemClickListener(this);
+                filmAdapter.notifyDataSetChanged();
             }
         }
+    }
+
+    //Creación del menú contextual
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        getMenuInflater().inflate(R.menu.menu_contextual, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    //Utilizar el menú contextual
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Film pelicula = (Film) listaPeliculas.getItemAtPosition(info.position);
+        int id = item.getItemId();
+
+        if (id == R.id.eliminar){
+            Toast.makeText(getApplicationContext(), "Has eliminado -> " + pelicula.getTitle(), Toast.LENGTH_SHORT).show();
+            FilmDataSource.films.remove(pelicula);
+            filmAdapter.notifyDataSetChanged();
+        }
+
+        return super.onContextItemSelected(item);
     }
 }

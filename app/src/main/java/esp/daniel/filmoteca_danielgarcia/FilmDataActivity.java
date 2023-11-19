@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,6 +33,7 @@ public class FilmDataActivity extends AppCompatActivity {
         txtNumAnyo = (TextView) findViewById(R.id.txtNumAnyo);
         txtFormatoGenero = (TextView) findViewById(R.id.txtFormatoGenero);
         txtComentario = (TextView) findViewById(R.id.txtComentario);
+        txtComentario.setMovementMethod(new ScrollingMovementMethod());
         btnWebIMDB = (Button) findViewById(R.id.btnWebIMDB);
         btnVolverMenu = (Button) findViewById(R.id.btnVolverMenu);
         btnEditar = (Button) findViewById(R.id.btnEditar);

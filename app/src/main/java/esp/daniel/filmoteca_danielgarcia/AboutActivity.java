@@ -36,7 +36,7 @@ public class AboutActivity extends AppCompatActivity {
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Soporte Filmoteca.");
                 intent.putExtra(Intent.EXTRA_TEXT, "Texto del correo.");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"alumnotarde1@gmail.com"});
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"filmoteca@pmdm.es"});
                 startActivity(intent);
             }
         });
