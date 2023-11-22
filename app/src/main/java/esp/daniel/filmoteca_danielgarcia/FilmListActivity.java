@@ -73,8 +73,6 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
                 );
                 FilmDataSource.films.add(pelicula);
-                //listaPeliculas.setAdapter(filmAdapter);
-                //listaPeliculas.setOnItemClickListener(this);
                 filmAdapter.notifyDataSetChanged();
                 return true;
         }
@@ -97,8 +95,6 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DATA_FILM){
             if (resultCode == RESULT_CANCELED){
-                //listaPeliculas.setAdapter(filmAdapter);
-                //listaPeliculas.setOnItemClickListener(this);
                 filmAdapter.notifyDataSetChanged();
             }
         }

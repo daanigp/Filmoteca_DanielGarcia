@@ -185,6 +185,17 @@ public class FilmDataSource {
 
         ));
 
+        films.add(new Film(
+                R.drawable.milla_verde,
+                "La milla verde",
+                "Frank Darabont",
+                1999,
+                Film.GENRE_DRAMA,
+                Film.FORMAT_BLURAY,
+                "https://www.imdb.com/title/tt0120689/?ref_=nv_sr_srsg_0_tt_3_nm_5_q_la%2520milla%2520verde",
+                "Las vidas de los guardias del corredor de la muerte se ven afectadas por uno de sus reclusos: un hombre negro acusado de asesinato y violación de niños, pero que tiene un misterioso don."
+        ));
+
     }
 
 }
