@@ -32,33 +32,18 @@
 
     <Button
         android:id="@+id/btnSitioWeb"
-        android:layout_width="187dp"
-        android:layout_height="27dp"
+        android:layout_width="208dp"
+        android:layout_height="35dp"
         android:layout_marginStart="20dp"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="@string/sitioWeb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagenLogo"
-        app:layout_constraintVertical_bias="0.154" />
-
-    <Button
-        android:id="@+id/btnSoporte"
-        android:layout_width="206dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="20dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:text="@string/soporte"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSitioWeb"
-        app:layout_constraintVertical_bias="0.195" />
+        app:layout_constraintVertical_bias="0.109" />
 
     <Button
         android:id="@+id/btnVolver"
@@ -70,9 +55,24 @@
         android:text="@string/volver"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSoporte"
-        app:layout_constraintVertical_bias="0.279" />
+        app:layout_constraintVertical_bias="0.165" />
+
+    <Button
+        android:id="@+id/btnSoporte"
+        android:layout_width="208dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="20dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/soporte"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSitioWeb"
+        app:layout_constraintVertical_bias="0.1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,7 @@ public class FilmDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.film_data_activity);
 
+        //Creamos el contenido del layout
         imgView = (ImageView) findViewById(R.id.imgPeli);
         txtNomPelicula = (TextView) findViewById(R.id.txtNomPelicula);
         txtNomDirector = (TextView) findViewById(R.id.txtNomDirector);
@@ -38,10 +39,11 @@ public class FilmDataActivity extends AppCompatActivity {
         btnVolverMenu = (Button) findViewById(R.id.btnVolverMenu);
         btnEditar = (Button) findViewById(R.id.btnEditar);
 
-
         //Coger la posición de la película mediante el intent
         Intent intent = getIntent();
         position = intent.getIntExtra("FILM_POSITION", 0);
+
+        //Asignamos los valores de la película que pulsamos en la FilmListActivity al layout
         imgView.setImageResource(FilmDataSource.films.get(position).getImageResId());
         txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
         txtNomDirector.setText(FilmDataSource.films.get(position).getDirector().toString());
@@ -102,8 +104,8 @@ public class FilmDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Volviendo al menú principal", Toast.LENGTH_SHORT).show();
-                Intent intentCancel = new Intent();
-                setResult(RESULT_CANCELED, intentCancel);
+                Intent intentVolver = new Intent();
+                setResult(RESULT_OK, intentVolver);
                 finish();
             }
         });
@@ -126,6 +128,8 @@ public class FilmDataActivity extends AppCompatActivity {
         if (requestCode == EDIT_OPTION){
             if (resultCode == RESULT_OK){
                 Toast.makeText(getApplicationContext(), "Cambios aplicados correctamente", Toast.LENGTH_SHORT).show();
+
+                //Volvermos a cargar los datos del layout, por si se han editado algunos campos.
                 txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
                 txtNomDirector.setText(FilmDataSource.films.get(position).getDirector().toString());
                 anyo = String.valueOf(FilmDataSource.films.get(position).getYear());

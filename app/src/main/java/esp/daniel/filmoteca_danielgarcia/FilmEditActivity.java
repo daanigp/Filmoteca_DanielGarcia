@@ -87,6 +87,7 @@ public class FilmEditActivity extends AppCompatActivity {
         btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Actualizamos la película que teníamos creada con los nuevos datos que hemos recogido.
                 FilmDataSource.films.get(posicion).setTitle(txtEditTitulo.getText().toString());
                 FilmDataSource.films.get(posicion).setDirector(txtEditDirector.getText().toString());
                 int year = Integer.parseInt(txtEditAnyo.getText().toString());

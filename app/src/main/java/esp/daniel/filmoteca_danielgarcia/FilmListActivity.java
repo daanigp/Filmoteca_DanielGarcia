@@ -94,7 +94,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DATA_FILM){
-            if (resultCode == RESULT_CANCELED){
+            if (resultCode == RESULT_OK){
                 filmAdapter.notifyDataSetChanged();
             }
         }
