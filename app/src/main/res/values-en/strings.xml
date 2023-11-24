@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Filmoteca-DanielGarcia</string>
+    <string name="app_name">Film library-DanielGarcia</string>
     <string name="creadoPor">Created by: Daniel García Pascual</string>
     <string name="sitioWeb">GO TO THE WEBSITE</string>
     <string name="soporte">SUPPORT</string>
@@ -17,6 +17,7 @@
     <string name="cancelar">CANCEL</string>
     <string name="guardar">SAVE</string>
     <string name="eliminar">Delete</string>
+    <string name="fondoEditText">Write here...</string>
 
     <string-array name="generos_array">
         <item>Action</item>
