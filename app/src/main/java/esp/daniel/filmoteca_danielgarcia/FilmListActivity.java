@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.Format;
@@ -21,11 +22,14 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
     private static int DATA_FILM = 2;
     FilmAdapter filmAdapter;
     ListView listaPeliculas;
+    View mensaje_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_list);
+
+        mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
         FilmDataSource.Inizialize();
 
@@ -54,13 +58,27 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         switch (id){
             case R.id.itemAcercaDe:
                 //Nos lleva a la actividad de AboutActivity
-                Toast.makeText(getApplicationContext(), "Has pulsado sobre Acerca de.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Has pulsado sobre Acerca de.", Toast.LENGTH_SHORT).show();
+                Toast mensaje = new Toast(FilmListActivity.this);
+                mensaje.setView(mensaje_layout);
+
+                TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                texto.setText("Has pulsado sobre Acerca de.");
+                mensaje.setDuration(Toast.LENGTH_SHORT);
+                mensaje.show();
                 Intent intentAbout = new Intent(FilmListActivity.this, AboutActivity.class);
                 startActivity(intentAbout);
                 return true;
             case R.id.itemNuevaPeli:
                 //Añade una nueva película al ArrayList
-                Toast.makeText(getApplicationContext(), "Has pulsado sobre Añadir película.", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Has pulsado sobre Añadir película.", Toast.LENGTH_SHORT).show();
+                Toast mensaje2 = new Toast(FilmListActivity.this);
+                mensaje2.setView(mensaje_layout);
+
+                TextView texto2 = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                texto2.setText("Has pulsado sobre Añadir película.");
+                mensaje2.setDuration(Toast.LENGTH_SHORT);
+                mensaje2.show();
                 Film pelicula = new Film(
                         R.drawable.icono_img,
                         "Agregar película",
@@ -115,7 +133,14 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         int id = item.getItemId();
 
         if (id == R.id.eliminar){
-            Toast.makeText(getApplicationContext(), "Has eliminado -> " + pelicula.getTitle(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Has eliminado -> " + pelicula.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast mensaje = new Toast(FilmListActivity.this);
+            mensaje.setView(mensaje_layout);
+
+            TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+            texto.setText("Has eliminado -> " + pelicula.getTitle());
+            mensaje.setDuration(Toast.LENGTH_SHORT);
+            mensaje.show();
             FilmDataSource.films.remove(pelicula);
             filmAdapter.notifyDataSetChanged();
         }
