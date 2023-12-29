@@ -11,13 +11,13 @@
         android:id="@+id/toastMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@android:drawable/ic_menu_send"
+        android:drawableLeft="@android:drawable/ic_menu_mylocation"
         android:drawablePadding="5dp"
         android:paddingLeft="15dip"
         android:paddingRight="15dip"
-        android:text="Hola"
+        android:text="text"
         android:textAlignment="center"
-        android:textColor="@color/toastborder"
-        android:textSize="17sp" />
+        android:textColor="@color/white"
+        android:textSize="20dp" />
 
 </LinearLayout>

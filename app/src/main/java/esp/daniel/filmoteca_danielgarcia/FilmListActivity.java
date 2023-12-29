@@ -58,7 +58,6 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         switch (id){
             case R.id.itemAcercaDe:
                 //Nos lleva a la actividad de AboutActivity
-                //Toast.makeText(getApplicationContext(), "Has pulsado sobre Acerca de.", Toast.LENGTH_SHORT).show();
                 Toast mensaje = new Toast(FilmListActivity.this);
                 mensaje.setView(mensaje_layout);
 
@@ -71,7 +70,6 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 return true;
             case R.id.itemNuevaPeli:
                 //Añade una nueva película al ArrayList
-                //Toast.makeText(getApplicationContext(), "Has pulsado sobre Añadir película.", Toast.LENGTH_SHORT).show();
                 Toast mensaje2 = new Toast(FilmListActivity.this);
                 mensaje2.setView(mensaje_layout);
 
@@ -133,7 +131,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         int id = item.getItemId();
 
         if (id == R.id.eliminar){
-            //Toast.makeText(getApplicationContext(), "Has eliminado -> " + pelicula.getTitle(), Toast.LENGTH_SHORT).show();
+
             Toast mensaje = new Toast(FilmListActivity.this);
             mensaje.setView(mensaje_layout);
 

@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class FilmEditActivity extends AppCompatActivity {
@@ -18,12 +20,15 @@ public class FilmEditActivity extends AppCompatActivity {
     Button btnGuardar, btnCapturarImg, btnSelectImg, btnCancelar;
     Spinner spnFormato, spnGenero;
     EditText txtEditTitulo, txtEditDirector, txtEditAnyo, txtEditWeb, txtEditComentario;
+    View mensaje_layout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_film);
+
+        mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
         //Posición del intent
         Intent intentFilmDataActivity = getIntent();
@@ -38,7 +43,13 @@ public class FilmEditActivity extends AppCompatActivity {
         btnCapturarImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Funcionalidad no implementada", Toast.LENGTH_SHORT).show();
+                Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
+                mensajeNoFunciona.setView(mensaje_layout);
+
+                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                text.setText("Funcionalidad no implementada.");
+                mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
+                mensajeNoFunciona.show();
             }
         });
 
@@ -47,7 +58,13 @@ public class FilmEditActivity extends AppCompatActivity {
         btnSelectImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Funcionalidad no implementada", Toast.LENGTH_SHORT).show();
+                Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
+                mensajeNoFunciona.setView(mensaje_layout);
+
+                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                text.setText("Funcionalidad no implementada.");
+                mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
+                mensajeNoFunciona.show();
             }
         });
 

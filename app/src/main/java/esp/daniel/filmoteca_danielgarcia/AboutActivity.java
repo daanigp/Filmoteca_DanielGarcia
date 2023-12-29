@@ -26,7 +26,6 @@ public class AboutActivity extends AppCompatActivity {
         btnSitioWeb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "Redirigiendote al sitio web.", Toast.LENGTH_SHORT).show();
                 Toast mensajeSitioWeb = new Toast(AboutActivity.this);
                 mensajeSitioWeb.setView(mensaje_layout);
 
@@ -34,6 +33,7 @@ public class AboutActivity extends AppCompatActivity {
                 texto.setText("Redirigiendote al sitio web...");
                 mensajeSitioWeb.setDuration(Toast.LENGTH_SHORT);
                 mensajeSitioWeb.show();
+
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com"));
                 startActivity(intent);
             }
@@ -43,8 +43,6 @@ public class AboutActivity extends AppCompatActivity {
         btnSoporte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "Enviando correo electrónico...", Toast.LENGTH_SHORT).show();
-
                 Toast mensajeSitioWeb = new Toast(AboutActivity.this);
                 mensajeSitioWeb.setView(mensaje_layout);
 
@@ -67,7 +65,6 @@ public class AboutActivity extends AppCompatActivity {
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "Redirigiendote a la página principal.", Toast.LENGTH_SHORT).show();
                 Toast mensajeSitioWeb = new Toast(AboutActivity.this);
                 mensajeSitioWeb.setView(mensaje_layout);
 

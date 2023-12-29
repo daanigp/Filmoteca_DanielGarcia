@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 public class FilmDataActivity extends AppCompatActivity {
 
     private static final int EDIT_OPTION = 16;
@@ -21,11 +23,14 @@ public class FilmDataActivity extends AppCompatActivity {
     ImageView imgView;
     TextView txtComentario, txtFormatoGenero, txtNumAnyo, txtNomDirector, txtNomPelicula;
     Button btnWebIMDB, btnVolverMenu, btnEditar;
+    View mensaje_layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.film_data_activity);
+
+        mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
         //Creamos el contenido del layout
         imgView = (ImageView) findViewById(R.id.imgPeli);
@@ -93,7 +98,14 @@ public class FilmDataActivity extends AppCompatActivity {
         btnWebIMDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Redirigiendote a la página de IMDB de la película...", Toast.LENGTH_SHORT).show();
+                Toast mensajeWeb = new Toast(FilmDataActivity.this);
+                mensajeWeb.setView(mensaje_layout);
+
+                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                text.setText("Redirigiendote a la página de IMDB de la película:\n" + FilmDataSource.films.get(position).getTitle());
+                mensajeWeb.setDuration(Toast.LENGTH_SHORT);
+                mensajeWeb.show();
+
                 Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(FilmDataSource.films.get(position).getImdbURL()));
                 startActivity(intentWeb);
             }
@@ -103,7 +115,14 @@ public class FilmDataActivity extends AppCompatActivity {
         btnVolverMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Volviendo al menú principal", Toast.LENGTH_SHORT).show();
+                Toast mensajeMenu = new Toast(FilmDataActivity.this);
+                mensajeMenu.setView(mensaje_layout);
+
+                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                text.setText("Volviendo al menú principal");
+                mensajeMenu.setDuration(Toast.LENGTH_SHORT);
+                mensajeMenu.show();
+
                 Intent intentVolver = new Intent();
                 setResult(RESULT_OK, intentVolver);
                 finish();
@@ -114,7 +133,14 @@ public class FilmDataActivity extends AppCompatActivity {
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Editar los datos de la Película", Toast.LENGTH_SHORT).show();
+                Toast mensajeEdit = new Toast(FilmDataActivity.this);
+                mensajeEdit.setView(mensaje_layout);
+
+                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                text.setText("Editar los datos de la pelicula:\n" + FilmDataSource.films.get(position).getTitle());
+                mensajeEdit.setDuration(Toast.LENGTH_SHORT);
+                mensajeEdit.show();
+
                 Intent intentFilmEditActivity = new Intent(FilmDataActivity.this, FilmEditActivity.class);
                 intentFilmEditActivity.putExtra("FILM_POSITION", position);
                 startActivityForResult(intentFilmEditActivity, EDIT_OPTION);
@@ -127,7 +153,13 @@ public class FilmDataActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_OPTION){
             if (resultCode == RESULT_OK){
-                Toast.makeText(getApplicationContext(), "Cambios aplicados correctamente", Toast.LENGTH_SHORT).show();
+                Toast mensajeCambiosAplicados = new Toast(FilmDataActivity.this);
+                mensajeCambiosAplicados.setView(mensaje_layout);
+
+                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                text.setText("Cambios aplicados correctamente.");
+                mensajeCambiosAplicados.setDuration(Toast.LENGTH_SHORT);
+                mensajeCambiosAplicados.show();
 
                 //Volvermos a cargar los datos del layout, por si se han editado algunos campos.
                 txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
@@ -137,7 +169,14 @@ public class FilmDataActivity extends AppCompatActivity {
                 btnWebIMDB.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "Redirigiendote a la página de IMDB de la película...", Toast.LENGTH_SHORT).show();
+                        Toast mensajeWeb = new Toast(FilmDataActivity.this);
+                        mensajeWeb.setView(mensaje_layout);
+
+                        TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                        text.setText("Redirigiendote a la página de IMDB de la película:\n" + FilmDataSource.films.get(position).getTitle());
+                        mensajeWeb.setDuration(Toast.LENGTH_SHORT);
+                        mensajeWeb.show();
+
                         Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(FilmDataSource.films.get(position).getImdbURL()));
                         startActivity(intentWeb);
                     }
@@ -180,7 +219,13 @@ public class FilmDataActivity extends AppCompatActivity {
 
 
             } else {
-                Toast.makeText(getApplicationContext(), "Los cambios han sido cancelados", Toast.LENGTH_SHORT).show();
+                Toast mensajeCambiosCancelados = new Toast(FilmDataActivity.this);
+                mensajeCambiosCancelados.setView(mensaje_layout);
+
+                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                text.setText("Los cambios han sido cancelados.");
+                mensajeCambiosCancelados.setDuration(Toast.LENGTH_SHORT);
+                mensajeCambiosCancelados.show();
             }
         }
 
