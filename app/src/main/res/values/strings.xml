@@ -17,6 +17,11 @@
     <string name="guardar">GUARDAR</string>
     <string name="eliminar">Eliminar</string>
     <string name="fondoEditText">Escribe aqui...</string>
+    <string name="usuario">Usuario</string>
+    <string name="contrasenya">Contrasenya</string>
+    <string name="entrar">ENTRAR</string>
+    <string name="Registro">REGISTRARSE</string>
+
     <string-array name="generos_array">
         <item>Action</item>
         <item>Comedy</item>

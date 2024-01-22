@@ -18,6 +18,10 @@
     <string name="guardar">SAVE</string>
     <string name="eliminar">Delete</string>
     <string name="fondoEditText">Write here...</string>
+    <string name="usuario">User</string>
+    <string name="contrasenya">Password</string>
+    <string name="entrar">SIGN IN</string>
+    <string name="Registro">SIGN UP</string>
 
     <string-array name="generos_array">
         <item>Action</item>
