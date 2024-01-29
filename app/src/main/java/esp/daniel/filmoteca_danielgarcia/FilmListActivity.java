@@ -4,9 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -21,6 +28,7 @@ import java.text.Format;
 
 public class FilmListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    private final String CANAL_ID="33";
     private static int DATA_FILM = 2;
     FilmAdapter filmAdapter;
     ListView listaPeliculas;
@@ -92,6 +100,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 );
                 FilmDataSource.films.add(pelicula);
                 filmAdapter.notifyDataSetChanged();
+
+                mostrarNotificacion(true, true, pelicula);
                 return true;
         }
 
@@ -173,5 +183,46 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         });
 
         builder.show();
+    }
+
+    private void mostrarNotificacion(boolean expandible, boolean actividad, Film pelicula){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CANAL_ID);
+        builder.setSmallIcon(android.R.drawable.ic_dialog_info);
+
+        if (expandible && actividad){
+            NotificationCompat.InboxStyle estilo = new NotificationCompat.InboxStyle();
+            estilo.setBigContentTitle("Nueva pelicula creada");
+
+            String[] lineas = new String[7];
+            lineas[0] = pelicula.getTitle().toString();
+            lineas[1] = pelicula.getDirector().toString();
+            lineas[2] = String.valueOf(pelicula.getYear());
+            lineas[3] = String.valueOf(pelicula.getGenre());
+            lineas[4] = String.valueOf(pelicula.getFormat());
+            lineas[5] = pelicula.getImdbURL().toString();
+            lineas[6] = pelicula.getComments().toString();
+
+            for (int i = 0; i<lineas.length; i++){
+                estilo.addLine(lineas[i]);
+            }
+
+            builder.setStyle(estilo);
+
+            Intent intent = new Intent(this, FilmEditActivity.class);
+
+            PendingIntent pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
+            builder.setContentIntent(pending);
+        }
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel canal = new NotificationChannel(CANAL_ID, "Titulo del canal", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(canal);
+        }
+
+        Notification notification = builder.build();
+        notificationManager.notify(Integer.parseInt(CANAL_ID), notification);
     }
 }
