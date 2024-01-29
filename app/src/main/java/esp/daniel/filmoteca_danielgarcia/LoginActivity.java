@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         imgLogin = (ImageView) findViewById(R.id.imgLogin);
-        imgLogin.setImageDrawable(R.drawable.logo);
+       // imgLogin.setImageDrawable(R.drawable.logo);
 
         txtUserName = (EditText) findViewById(R.id.txtUserName);
         txtPassword = (EditText) findViewById(R.id.txtPassword);

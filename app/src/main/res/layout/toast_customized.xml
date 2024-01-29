@@ -17,7 +17,7 @@
         android:paddingRight="15dip"
         android:text="text"
         android:textAlignment="center"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20dp" />
 
 </LinearLayout>

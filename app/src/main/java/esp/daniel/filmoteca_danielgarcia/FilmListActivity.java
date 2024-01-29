@@ -2,8 +2,10 @@ package esp.daniel.filmoteca_danielgarcia;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -131,18 +133,45 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         int id = item.getItemId();
 
         if (id == R.id.eliminar){
-
-            Toast mensaje = new Toast(FilmListActivity.this);
-            mensaje.setView(mensaje_layout);
-
-            TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-            texto.setText("Has eliminado -> " + pelicula.getTitle());
-            mensaje.setDuration(Toast.LENGTH_SHORT);
-            mensaje.show();
-            FilmDataSource.films.remove(pelicula);
-            filmAdapter.notifyDataSetChanged();
+            mostrarMenuEmergente(pelicula.getTitle(), pelicula);
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    private void mostrarMenuEmergente(String titulo, Film pelicula){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Eliminar Película");
+        builder.setMessage("¿Estás seguro de eliminar la película con título " + titulo + "?");
+
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast mensaje = new Toast(FilmListActivity.this);
+                mensaje.setView(mensaje_layout);
+
+                TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                texto.setText("Has eliminado -> " + titulo);
+                mensaje.setDuration(Toast.LENGTH_SHORT);
+                mensaje.show();
+                FilmDataSource.films.remove(pelicula);
+                filmAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast mensaje = new Toast(FilmListActivity.this);
+                mensaje.setView(mensaje_layout);
+
+                TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                texto.setText("TRANQUILO! No has eliminado ninguna película");
+                mensaje.setDuration(Toast.LENGTH_SHORT);
+                mensaje.show();
+            }
+        });
+
+        builder.show();
     }
 }
