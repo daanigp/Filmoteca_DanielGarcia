@@ -99,9 +99,11 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
                 );
                 FilmDataSource.films.add(pelicula);
-                filmAdapter.notifyDataSetChanged();
+                //filmAdapter.notifyDataSetChanged();
 
-                mostrarNotificacion(true, true, pelicula);
+                int position = FilmDataSource.films.size() - 1;
+
+                mostrarNotificacion(true, true, pelicula, position);
                 return true;
         }
 
@@ -185,7 +187,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         builder.show();
     }
 
-    private void mostrarNotificacion(boolean expandible, boolean actividad, Film pelicula){
+    private void mostrarNotificacion(boolean expandible, boolean actividad, Film pelicula, int position){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CANAL_ID);
         builder.setSmallIcon(android.R.drawable.ic_dialog_info);
 
@@ -197,8 +199,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
             lineas[0] = pelicula.getTitle().toString();
             lineas[1] = pelicula.getDirector().toString();
             lineas[2] = String.valueOf(pelicula.getYear());
-            lineas[3] = String.valueOf(pelicula.getGenre());
-            lineas[4] = String.valueOf(pelicula.getFormat());
+            lineas[3] = obtenerGenero(pelicula.getGenre());
+            lineas[4] = obtenerFormato(pelicula.getFormat());
             lineas[5] = pelicula.getImdbURL().toString();
             lineas[6] = pelicula.getComments().toString();
 
@@ -208,7 +210,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
             builder.setStyle(estilo);
 
-            Intent intent = new Intent(this, FilmEditActivity.class);
+            Intent intent = new Intent(FilmListActivity.this, FilmEditActivity.class);
+            intent.putExtra("FILM_POSITION", position);
 
             PendingIntent pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
@@ -224,5 +227,37 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
         Notification notification = builder.build();
         notificationManager.notify(Integer.parseInt(CANAL_ID), notification);
+
+        filmAdapter.notifyDataSetChanged();
+    }
+
+    public String obtenerFormato(int posiconFormato){
+        switch (posiconFormato){
+            case 0:
+                return "DVD, ";
+            case 1:
+                return "Bluray, ";
+            case 2:
+                return "Digital, ";
+            default:
+                return "";
+        }
+    }
+
+    public String obtenerGenero(int posicioGenero){
+        switch (posicioGenero){
+            case 0:
+                return "Action";
+            case 1:
+                return "Comedy";
+            case 2:
+                return "Drama";
+            case 3:
+                return "Scifi";
+            case 4:
+                return "Horror";
+            default:
+                return "";
+        }
     }
 }
