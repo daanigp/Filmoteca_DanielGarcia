@@ -80,13 +80,14 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 return true;
             case R.id.itemNuevaPeli:
                 //Añade una nueva película al ArrayList
-                Toast mensaje2 = new Toast(FilmListActivity.this);
+                /*Toast mensaje2 = new Toast(FilmListActivity.this);
                 mensaje2.setView(mensaje_layout);
 
                 TextView texto2 = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
                 texto2.setText("Has pulsado sobre Añadir película.");
                 mensaje2.setDuration(Toast.LENGTH_SHORT);
-                mensaje2.show();
+                mensaje2.show();*/
+                Toast_personalized toast = new Toast_personalized("Has pulsado sobre Añadir película.", FilmListActivity.this, mensaje_layout);
                 Film pelicula = new Film(
                         R.drawable.icono_img,
                         "Agregar película",
