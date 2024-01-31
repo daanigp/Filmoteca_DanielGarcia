@@ -36,7 +36,10 @@ public class FilmEditActivity extends AppCompatActivity {
         //Posición del intent
         Intent intentFilmDataActivity = getIntent();
         posicion = intentFilmDataActivity.getIntExtra("FILM_POSITION", 0);
+
+        //Para borrar la notificación cuando se pulse sobre ella
         ((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE)).cancel(CANAL_ID);
+
         //Imagen película
         imgFilm = (ImageView) findViewById(R.id.imgFilm);
         imgFilm.setImageResource(FilmDataSource.films.get(posicion).getImageResId());

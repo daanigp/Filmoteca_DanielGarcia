@@ -213,7 +213,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
             Intent intentEditFilm = new Intent(FilmListActivity.this, FilmEditActivity.class);
             intentEditFilm.putExtra("FILM_POSITION", position);
 
-            PendingIntent pending = PendingIntent.getActivity(this, 0, intentEditFilm, PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent pending = PendingIntent.getActivity(this, position, intentEditFilm, PendingIntent.FLAG_IMMUTABLE);
 
             builder.setContentIntent(pending);
         }
