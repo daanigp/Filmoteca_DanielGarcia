@@ -1,10 +1,15 @@
 package esp.daniel.filmoteca_danielgarcia;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +23,13 @@ import android.widget.Toast;
 public class FilmEditActivity extends AppCompatActivity {
 
     private final int CANAL_ID = 33;
+    private static final int CODIGO_PERMISOS_CAMARA = 123;
     int posicion;
     ImageView imgFilm;
     Button btnGuardar, btnCapturarImg, btnSelectImg, btnCancelar;
     Spinner spnFormato, spnGenero;
     EditText txtEditTitulo, txtEditDirector, txtEditAnyo, txtEditWeb, txtEditComentario;
     View mensaje_layout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +54,22 @@ public class FilmEditActivity extends AppCompatActivity {
         btnCapturarImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
+                /*Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
                 mensajeNoFunciona.setView(mensaje_layout);
 
                 TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
                 text.setText("Funcionalidad no implementada.");
                 mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
-                mensajeNoFunciona.show();
+                mensajeNoFunciona.show();*/
+                int estado = ContextCompat.checkSelfPermission(FilmEditActivity.this, Manifest.permission.CAMERA);
+
+                if (estado == PackageManager.PERMISSION_GRANTED){
+                    Intent intentCamara = new Intent("android.media.action.IMAGE_CAPTURE");
+                    startActivity(intentCamara);
+                } else {
+                    ActivityCompat.requestPermissions(FilmEditActivity.this, new String[]{android.Manifest.permission.CAMERA}, CODIGO_PERMISOS_CAMARA);
+                }
+
             }
         });
 
@@ -136,7 +150,31 @@ public class FilmEditActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == CODIGO_PERMISOS_CAMARA) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
+                mensajeNoFunciona.setView(mensaje_layout);
+
+                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                text.setText("Has concedido el permiso para usar la cámara");
+                mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
+                mensajeNoFunciona.show();
+            } else {
+                Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
+                mensajeNoFunciona.setView(mensaje_layout);
+
+                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                text.setText("Has denegado el permiso para usar la cámara");
+                mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
+                mensajeNoFunciona.show();
+            }
+        }
 
     }
 }
