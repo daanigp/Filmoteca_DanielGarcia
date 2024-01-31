@@ -2,6 +2,8 @@ package esp.daniel.filmoteca_danielgarcia;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 public class FilmEditActivity extends AppCompatActivity {
 
+    private final int CANAL_ID = 33;
     int posicion;
     ImageView imgFilm;
     Button btnGuardar, btnCapturarImg, btnSelectImg, btnCancelar;
@@ -33,7 +36,7 @@ public class FilmEditActivity extends AppCompatActivity {
         //Posición del intent
         Intent intentFilmDataActivity = getIntent();
         posicion = intentFilmDataActivity.getIntExtra("FILM_POSITION", 0);
-
+        ((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE)).cancel(CANAL_ID);
         //Imagen película
         imgFilm = (ImageView) findViewById(R.id.imgFilm);
         imgFilm.setImageResource(FilmDataSource.films.get(posicion).getImageResId());

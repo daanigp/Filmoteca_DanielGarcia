@@ -99,11 +99,9 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
                 );
                 FilmDataSource.films.add(pelicula);
-                //filmAdapter.notifyDataSetChanged();
+                filmAdapter.notifyDataSetChanged();
 
-                int position = FilmDataSource.films.size() - 1;
-
-                mostrarNotificacion(true, true, pelicula, position);
+                mostrarNotificacion(true, true, pelicula);
                 return true;
         }
 
@@ -187,7 +185,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         builder.show();
     }
 
-    private void mostrarNotificacion(boolean expandible, boolean actividad, Film pelicula, int position){
+    private void mostrarNotificacion(boolean expandible, boolean actividad, Film pelicula){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CANAL_ID);
         builder.setSmallIcon(android.R.drawable.ic_dialog_info);
 
@@ -210,10 +208,12 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
             builder.setStyle(estilo);
 
-            Intent intent = new Intent(FilmListActivity.this, FilmEditActivity.class);
-            intent.putExtra("FILM_POSITION", position);
+            int position = FilmDataSource.films.size() - 1;
 
-            PendingIntent pending = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+            Intent intentEditFilm = new Intent(FilmListActivity.this, FilmEditActivity.class);
+            intentEditFilm.putExtra("FILM_POSITION", position);
+
+            PendingIntent pending = PendingIntent.getActivity(this, 0, intentEditFilm, PendingIntent.FLAG_IMMUTABLE);
 
             builder.setContentIntent(pending);
         }
@@ -227,8 +227,6 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
         Notification notification = builder.build();
         notificationManager.notify(Integer.parseInt(CANAL_ID), notification);
-
-        filmAdapter.notifyDataSetChanged();
     }
 
     public String obtenerFormato(int posiconFormato){
