@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
@@ -18,10 +19,14 @@ public class LoginActivity extends AppCompatActivity {
     Button btnSignIn, btnSignUp;
     ImageView imgLogin;
 
+    View mensaje_layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
         imgLogin = (ImageView) findViewById(R.id.imgLogin);
        // imgLogin.setImageDrawable(R.drawable.logo);
@@ -55,5 +60,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private void signUp(){
         Toast.makeText(this, "SIGN OUT", Toast.LENGTH_SHORT).show();
+    }
+
+    private void showToast(String message){
+        Toast mensajeSitioWeb = new Toast(LoginActivity.this);
+        mensajeSitioWeb.setView(mensaje_layout);
+
+        TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+        texto.setText(message);
+        mensajeSitioWeb.setDuration(Toast.LENGTH_SHORT);
+        mensajeSitioWeb.show();
     }
 }

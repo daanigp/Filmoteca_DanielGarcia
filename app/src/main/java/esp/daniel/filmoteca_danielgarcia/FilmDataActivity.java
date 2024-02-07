@@ -98,13 +98,7 @@ public class FilmDataActivity extends AppCompatActivity {
         btnWebIMDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast mensajeWeb = new Toast(FilmDataActivity.this);
-                mensajeWeb.setView(mensaje_layout);
-
-                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                text.setText("Redirigiendote a la página de IMDB de la película:\n" + FilmDataSource.films.get(position).getTitle());
-                mensajeWeb.setDuration(Toast.LENGTH_SHORT);
-                mensajeWeb.show();
+                showToast("Redirigiendote a la página de IMDB de la película:\n" + FilmDataSource.films.get(position).getTitle());
 
                 Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(FilmDataSource.films.get(position).getImdbURL()));
                 startActivity(intentWeb);
@@ -115,13 +109,7 @@ public class FilmDataActivity extends AppCompatActivity {
         btnVolverMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast mensajeMenu = new Toast(FilmDataActivity.this);
-                mensajeMenu.setView(mensaje_layout);
-
-                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                text.setText("Volviendo al menú principal");
-                mensajeMenu.setDuration(Toast.LENGTH_SHORT);
-                mensajeMenu.show();
+                showToast("Volviendo al menú principal");
 
                 Intent intentVolver = new Intent();
                 setResult(RESULT_OK, intentVolver);
@@ -133,13 +121,7 @@ public class FilmDataActivity extends AppCompatActivity {
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast mensajeEdit = new Toast(FilmDataActivity.this);
-                mensajeEdit.setView(mensaje_layout);
-
-                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                text.setText("Editar los datos de la pelicula:\n" + FilmDataSource.films.get(position).getTitle());
-                mensajeEdit.setDuration(Toast.LENGTH_SHORT);
-                mensajeEdit.show();
+                showToast("Editar los datos de la pelicula:\n" + FilmDataSource.films.get(position).getTitle());
 
                 Intent intentFilmEditActivity = new Intent(FilmDataActivity.this, FilmEditActivity.class);
                 intentFilmEditActivity.putExtra("FILM_POSITION", position);
@@ -153,13 +135,7 @@ public class FilmDataActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_OPTION){
             if (resultCode == RESULT_OK){
-                Toast mensajeCambiosAplicados = new Toast(FilmDataActivity.this);
-                mensajeCambiosAplicados.setView(mensaje_layout);
-
-                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                text.setText("Cambios aplicados correctamente.");
-                mensajeCambiosAplicados.setDuration(Toast.LENGTH_SHORT);
-                mensajeCambiosAplicados.show();
+                showToast("Cambios aplicados correctamente.");
 
                 //Volvermos a cargar los datos del layout, por si se han editado algunos campos.
                 txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
@@ -169,13 +145,7 @@ public class FilmDataActivity extends AppCompatActivity {
                 btnWebIMDB.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast mensajeWeb = new Toast(FilmDataActivity.this);
-                        mensajeWeb.setView(mensaje_layout);
-
-                        TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                        text.setText("Redirigiendote a la página de IMDB de la película:\n" + FilmDataSource.films.get(position).getTitle());
-                        mensajeWeb.setDuration(Toast.LENGTH_SHORT);
-                        mensajeWeb.show();
+                        showToast("Redirigiendote a la página de IMDB de la película:\n" + FilmDataSource.films.get(position).getTitle());
 
                         Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(FilmDataSource.films.get(position).getImdbURL()));
                         startActivity(intentWeb);
@@ -219,15 +189,19 @@ public class FilmDataActivity extends AppCompatActivity {
 
 
             } else {
-                Toast mensajeCambiosCancelados = new Toast(FilmDataActivity.this);
-                mensajeCambiosCancelados.setView(mensaje_layout);
-
-                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                text.setText("Los cambios han sido cancelados.");
-                mensajeCambiosCancelados.setDuration(Toast.LENGTH_SHORT);
-                mensajeCambiosCancelados.show();
+                showToast("Los cambios han sido cancelados.");
             }
         }
 
+    }
+
+    private void showToast(String message){
+        Toast mensajeSitioWeb = new Toast(FilmDataActivity.this);
+        mensajeSitioWeb.setView(mensaje_layout);
+
+        TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+        texto.setText(message);
+        mensajeSitioWeb.setDuration(Toast.LENGTH_SHORT);
+        mensajeSitioWeb.show();
     }
 }

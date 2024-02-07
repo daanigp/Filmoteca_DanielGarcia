@@ -78,13 +78,7 @@ public class FilmEditActivity extends AppCompatActivity {
         btnSelectImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
-                mensajeNoFunciona.setView(mensaje_layout);
-
-                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                text.setText("Funcionalidad no implementada.");
-                mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
-                mensajeNoFunciona.show();
+                showToast("Funcionalidad no implementada.");
             }
         });
 
@@ -158,23 +152,21 @@ public class FilmEditActivity extends AppCompatActivity {
 
         if(requestCode == CODIGO_PERMISOS_CAMARA) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
-                mensajeNoFunciona.setView(mensaje_layout);
-
-                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                text.setText("Has concedido el permiso para usar la cámara");
-                mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
-                mensajeNoFunciona.show();
+                showToast("Has concedido el permiso para usar la cámara");
             } else {
-                Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
-                mensajeNoFunciona.setView(mensaje_layout);
-
-                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                text.setText("Has denegado el permiso para usar la cámara");
-                mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
-                mensajeNoFunciona.show();
+                showToast("Has denegado el permiso para usar la cámara");
             }
         }
 
+    }
+
+    private void showToast(String message){
+        Toast mensajeSitioWeb = new Toast(FilmEditActivity.this);
+        mensajeSitioWeb.setView(mensaje_layout);
+
+        TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+        texto.setText(message);
+        mensajeSitioWeb.setDuration(Toast.LENGTH_SHORT);
+        mensajeSitioWeb.show();
     }
 }

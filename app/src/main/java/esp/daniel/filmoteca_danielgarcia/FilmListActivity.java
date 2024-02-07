@@ -68,13 +68,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         switch (id){
             case R.id.itemAcercaDe:
                 //Nos lleva a la actividad de AboutActivity
-                Toast mensaje = new Toast(FilmListActivity.this);
-                mensaje.setView(mensaje_layout);
+                showToast("Has pulsado sobre Acerca de.");
 
-                TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                texto.setText("Has pulsado sobre Acerca de.");
-                mensaje.setDuration(Toast.LENGTH_SHORT);
-                mensaje.show();
                 Intent intentAbout = new Intent(FilmListActivity.this, AboutActivity.class);
                 startActivity(intentAbout);
                 return true;
@@ -87,7 +82,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 texto2.setText("Has pulsado sobre Añadir película.");
                 mensaje2.setDuration(Toast.LENGTH_SHORT);
                 mensaje2.show();*/
-                Toast_personalized toast = new Toast_personalized("Has pulsado sobre Añadir película.", FilmListActivity.this, mensaje_layout);
+                showToast("Has pulsado sobre Añadir película.");
+
                 Film pelicula = new Film(
                         R.drawable.icono_img,
                         "Agregar película",
@@ -159,13 +155,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast mensaje = new Toast(FilmListActivity.this);
-                mensaje.setView(mensaje_layout);
+                showToast("Has eliminado -> " + titulo);
 
-                TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                texto.setText("Has eliminado -> " + titulo);
-                mensaje.setDuration(Toast.LENGTH_SHORT);
-                mensaje.show();
                 FilmDataSource.films.remove(pelicula);
                 filmAdapter.notifyDataSetChanged();
             }
@@ -173,13 +164,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast mensaje = new Toast(FilmListActivity.this);
-                mensaje.setView(mensaje_layout);
-
-                TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                texto.setText("TRANQUILO! No has eliminado ninguna película");
-                mensaje.setDuration(Toast.LENGTH_SHORT);
-                mensaje.show();
+                showToast("TRANQUILO! No has eliminado ninguna película");
             }
         });
 
@@ -258,5 +243,15 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
             default:
                 return "";
         }
+    }
+
+    private void showToast(String message){
+        Toast mensajeSitioWeb = new Toast(FilmListActivity.this);
+        mensajeSitioWeb.setView(mensaje_layout);
+
+        TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+        texto.setText(message);
+        mensajeSitioWeb.setDuration(Toast.LENGTH_SHORT);
+        mensajeSitioWeb.show();
     }
 }
