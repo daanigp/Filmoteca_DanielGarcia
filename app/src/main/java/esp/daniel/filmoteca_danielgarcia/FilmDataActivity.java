@@ -196,12 +196,12 @@ public class FilmDataActivity extends AppCompatActivity {
     }
 
     private void showToast(String message){
-        Toast mensajeSitioWeb = new Toast(FilmDataActivity.this);
-        mensajeSitioWeb.setView(mensaje_layout);
+        Toast mensajeFilmData = new Toast(FilmDataActivity.this);
+        mensajeFilmData.setView(mensaje_layout);
 
         TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
         texto.setText(message);
-        mensajeSitioWeb.setDuration(Toast.LENGTH_SHORT);
-        mensajeSitioWeb.show();
+        mensajeFilmData.setDuration(Toast.LENGTH_SHORT);
+        mensajeFilmData.show();
     }
 }

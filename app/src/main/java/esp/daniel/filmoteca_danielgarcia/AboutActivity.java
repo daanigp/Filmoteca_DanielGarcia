@@ -59,12 +59,12 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void showToast(String message){
-        Toast mensajeSitioWeb = new Toast(AboutActivity.this);
-        mensajeSitioWeb.setView(mensaje_layout);
+        Toast mensajeAbout = new Toast(AboutActivity.this);
+        mensajeAbout.setView(mensaje_layout);
 
         TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
         texto.setText(message);
-        mensajeSitioWeb.setDuration(Toast.LENGTH_SHORT);
-        mensajeSitioWeb.show();
+        mensajeAbout.setDuration(Toast.LENGTH_SHORT);
+        mensajeAbout.show();
     }
 }

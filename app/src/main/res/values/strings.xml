@@ -21,6 +21,7 @@
     <string name="contrasenya">Contrasenya</string>
     <string name="entrar">ENTRAR</string>
     <string name="Registro">REGISTRARSE</string>
+    <string name="datosUsuario">Datos del usuario:</string>
 
     <string-array name="generos_array">
         <item>Action</item>

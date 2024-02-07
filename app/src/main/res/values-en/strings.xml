@@ -22,6 +22,7 @@
     <string name="contrasenya">Password</string>
     <string name="entrar">SIGN IN</string>
     <string name="Registro">SIGN UP</string>
+    <string name="datosUsuario">User data:</string>
 
     <string-array name="generos_array">
         <item>Action</item>

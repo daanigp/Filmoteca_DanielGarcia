@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <TextView
+        android:id="@+id/txtPasswordLogin_default"
+        android:layout_width="161dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="152dp"
+        android:text="@string/contrasenya"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogin" />
+
     <Button
         android:id="@+id/btnSignIn"
         android:layout_width="180dp"
@@ -22,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
 
     <Button
-        android:id="@+id/btnSignUp"
+        android:id="@+id/btnGoToSignUp"
         android:layout_width="180dp"
         android:layout_height="70dp"
         android:layout_marginTop="32dp"
@@ -40,37 +51,48 @@
         android:id="@+id/imgLogin"
         android:layout_width="182dp"
         android:layout_height="161dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/logo" />
 
     <EditText
-        android:id="@+id/txtUserName"
-        android:layout_width="327dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="64dp"
+        android:id="@+id/txtUsername"
+        android:layout_width="333dp"
+        android:layout_height="56dp"
         android:ems="10"
         android:hint="@string/usuario"
         android:inputType="text"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/txtUserLogin_default" />
 
     <EditText
         android:id="@+id/txtPassword"
         android:layout_width="331dp"
         android:layout_height="53dp"
-        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/contrasenya"
         android:inputType="textPassword"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.562"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtUserName" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswordLogin_default" />
+
+    <TextView
+        android:id="@+id/txtUserLogin_default"
+        android:layout_width="161dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

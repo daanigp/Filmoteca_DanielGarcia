@@ -161,12 +161,12 @@ public class FilmEditActivity extends AppCompatActivity {
     }
 
     private void showToast(String message){
-        Toast mensajeSitioWeb = new Toast(FilmEditActivity.this);
-        mensajeSitioWeb.setView(mensaje_layout);
+        Toast mensajeFilmEdit = new Toast(FilmEditActivity.this);
+        mensajeFilmEdit.setView(mensaje_layout);
 
         TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
         texto.setText(message);
-        mensajeSitioWeb.setDuration(Toast.LENGTH_SHORT);
-        mensajeSitioWeb.show();
+        mensajeFilmEdit.setDuration(Toast.LENGTH_SHORT);
+        mensajeFilmEdit.show();
     }
 }

@@ -246,12 +246,12 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
     }
 
     private void showToast(String message){
-        Toast mensajeSitioWeb = new Toast(FilmListActivity.this);
-        mensajeSitioWeb.setView(mensaje_layout);
+        Toast mensajeFilmList = new Toast(FilmListActivity.this);
+        mensajeFilmList.setView(mensaje_layout);
 
         TextView texto = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
         texto.setText(message);
-        mensajeSitioWeb.setDuration(Toast.LENGTH_SHORT);
-        mensajeSitioWeb.show();
+        mensajeFilmList.setDuration(Toast.LENGTH_SHORT);
+        mensajeFilmList.show();
     }
 }
