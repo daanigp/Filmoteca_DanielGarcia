@@ -13,6 +13,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -24,15 +26,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.Format;
+import java.util.ArrayList;
 
 public class FilmListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    SQLiteDatabase db;
     private final String CANAL_ID="33";
     private static int DATA_FILM = 2;
     FilmAdapter filmAdapter;
     ListView listaPeliculas;
     View mensaje_layout;
+
+    ArrayList<Film> filmList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +52,14 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
         mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
-        FilmDataSource.Inizialize();
+        //FilmDataSource.Inizialize();
+
+        listarBBDD();
 
         listaPeliculas = (ListView) findViewById(R.id.listaPeliculas);
-        filmAdapter = new FilmAdapter(this, R.layout.item_film, FilmDataSource.films);
+        //filmAdapter = new FilmAdapter(this, R.layout.item_film, FilmDataSource.films);
+        filmAdapter = new FilmAdapter(this, R.layout.item_film, filmList);
+
 
         listaPeliculas.setAdapter(filmAdapter);
         listaPeliculas.setOnItemClickListener(this);
@@ -52,6 +67,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         //Menú contextual
         registerForContextMenu(listaPeliculas);
 
+        db = openOrCreateDatabase("FilmSource", Context.MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS film(Id INTEGER PRIMARY KEY AUTOINCREMENT, Image INTEGER, Title VARCHAR, Director VARCHAR, Year INTEGER, Genre INTEGER, Format INTEGER, ImdURL VARCHAR, Comments VARCHAR);");
     }
 
     //Menú desplegable
@@ -95,8 +112,10 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                         "Agregar comentario"
 
                 );
-                FilmDataSource.films.add(pelicula);
+                //FilmDataSource.films.add(pelicula);
+                filmList.add(pelicula);
                 filmAdapter.notifyDataSetChanged();
+                //listarBBDD();
 
                 mostrarNotificacion(true, true, pelicula);
                 return true;
@@ -155,10 +174,14 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                showToast("Has eliminado -> " + titulo);
-
-                FilmDataSource.films.remove(pelicula);
-                filmAdapter.notifyDataSetChanged();
+                //FilmDataSource.films.remove(pelicula);
+                if (borrarPelicula(pelicula)) {
+                    filmAdapter.notifyDataSetChanged();
+                    //listarBBDD();
+                    showToast("Has eliminado -> " + titulo);
+                } else {
+                    showToast("No se puede eliminar la pelicula");
+                }
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -194,7 +217,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
             builder.setStyle(estilo);
 
-            int position = FilmDataSource.films.size() - 1;
+            //int position = FilmDataSource.films.size() - 1;
+            int position = filmList.size() - 1;
 
             Intent intentEditFilm = new Intent(FilmListActivity.this, FilmEditActivity.class);
             intentEditFilm.putExtra("FILM_POSITION", position);
@@ -253,5 +277,39 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         texto.setText(message);
         mensajeFilmList.setDuration(Toast.LENGTH_SHORT);
         mensajeFilmList.show();
+    }
+
+    private void listarBBDD(){
+        filmList = new ArrayList<>();
+
+        Cursor c = db.rawQuery("SELECT * FROM film", null);
+        if(c.getCount() != 0){
+            while(c.moveToNext()){
+                Film film = new Film();
+                film.setImageResId(c.getInt(1));
+                film.setTitle(c.getString(2));
+                film.setDirector(c.getString(3));
+                film.setYear(c.getInt(4));
+                film.setGenre(c.getInt(5));
+                film.setFormat(c.getInt(6));
+                film.setImdbURL(c.getString(7));
+                film.setComments(c.getString(8));
+
+                filmList.add(film);
+            }
+        }
+
+        c.close();
+    }
+
+    private boolean borrarPelicula(Film pelicula){
+        boolean borrado = false;
+        Cursor c = db.rawQuery("SELECT * FROM film WHERE Title = '" + pelicula.getTitle() + "' AND Director = '" + pelicula.getDirector() + "';", null);
+        if (c.getCount() != 0){
+            db.execSQL("DELETE FROM film WHERE Title = '" + pelicula.getTitle() + "' AND Director = '" + pelicula.getDirector() + "';");
+            borrado = true;
+        }
+        c.close();
+        return borrado;
     }
 }
