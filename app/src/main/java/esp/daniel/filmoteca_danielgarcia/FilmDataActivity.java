@@ -3,7 +3,10 @@ package esp.daniel.filmoteca_danielgarcia;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -15,7 +18,10 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class FilmDataActivity extends AppCompatActivity {
+    SQLiteDatabase db;
 
     private static final int EDIT_OPTION = 16;
     String anyo, formatoGenero;
@@ -25,12 +31,18 @@ public class FilmDataActivity extends AppCompatActivity {
     Button btnWebIMDB, btnVolverMenu, btnEditar;
     View mensaje_layout;
 
+    ArrayList<Film> filmList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.film_data_activity);
 
+        filmList = new ArrayList<>();
+
         mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
+
+        db = openOrCreateDatabase("FilmSource", Context.MODE_PRIVATE, null);
 
         //Creamos el contenido del layout
         imgView = (ImageView) findViewById(R.id.imgPeli);
@@ -47,7 +59,7 @@ public class FilmDataActivity extends AppCompatActivity {
         //Coger la posición de la película mediante el intent
         Intent intent = getIntent();
         position = intent.getIntExtra("FILM_POSITION", 0);
-
+/*
         //Asignamos los valores de la película que pulsamos en la FilmListActivity al layout
         imgView.setImageResource(FilmDataSource.films.get(position).getImageResId());
         txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
@@ -93,6 +105,13 @@ public class FilmDataActivity extends AppCompatActivity {
         txtFormatoGenero.setText(formatoGenero);
 
         txtComentario.setText(FilmDataSource.films.get(position).getComments().toString());
+        */
+
+        listFilmsFromBBDD();
+        selectFilm();
+
+
+
 
         //Botón web IMDB
         btnWebIMDB.setOnClickListener(new View.OnClickListener() {
@@ -203,5 +222,32 @@ public class FilmDataActivity extends AppCompatActivity {
         texto.setText(message);
         mensajeFilmData.setDuration(Toast.LENGTH_SHORT);
         mensajeFilmData.show();
+    }
+
+    private void listFilmsFromBBDD(){
+        Cursor c = db.rawQuery("SELECT * FROM film", null);
+        if(c.getCount() != 0){
+            while(c.moveToNext()){
+                Film film = new Film();
+                film.setImageResId(c.getInt(1));
+                film.setTitle(c.getString(2));
+                film.setDirector(c.getString(3));
+                film.setYear(c.getInt(4));
+                film.setGenre(c.getInt(5));
+                film.setFormat(c.getInt(6));
+                film.setImdbURL(c.getString(7));
+                film.setComments(c.getString(8));
+
+                filmList.add(film);
+            }
+        }
+        c.close();
+    }
+
+    private void selectFilm(){
+        Cursor c = db.rawQuery("SELECT * FROM film WHERE Id = " + position + ";", null);
+        if (c.getCount() != 0){
+            txtNomPelicula.setText(c.getString(2));
+        }
     }
 }

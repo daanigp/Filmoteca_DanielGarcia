@@ -50,7 +50,12 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film_list);
 
+        filmList = new ArrayList<>();
+
         mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
+
+        db = openOrCreateDatabase("FilmSource", Context.MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS film(Id INTEGER PRIMARY KEY AUTOINCREMENT, Image INTEGER, Title VARCHAR, Director VARCHAR, Year INTEGER, Genre INTEGER, Format INTEGER, ImdURL VARCHAR, Comments VARCHAR);");
 
         //FilmDataSource.Inizialize();
 
@@ -67,8 +72,6 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         //Menú contextual
         registerForContextMenu(listaPeliculas);
 
-        db = openOrCreateDatabase("FilmSource", Context.MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS film(Id INTEGER PRIMARY KEY AUTOINCREMENT, Image INTEGER, Title VARCHAR, Director VARCHAR, Year INTEGER, Genre INTEGER, Format INTEGER, ImdURL VARCHAR, Comments VARCHAR);");
     }
 
     //Menú desplegable
@@ -113,6 +116,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
                 );
                 //FilmDataSource.films.add(pelicula);
+                inertFilmToBBDD(pelicula);
                 filmList.add(pelicula);
                 filmAdapter.notifyDataSetChanged();
                 //listarBBDD();
@@ -178,6 +182,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 if (borrarPelicula(pelicula)) {
                     filmAdapter.notifyDataSetChanged();
                     //listarBBDD();
+                    filmList.remove(pelicula);
                     showToast("Has eliminado -> " + titulo);
                 } else {
                     showToast("No se puede eliminar la pelicula");
@@ -280,8 +285,6 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
     }
 
     private void listarBBDD(){
-        filmList = new ArrayList<>();
-
         Cursor c = db.rawQuery("SELECT * FROM film", null);
         if(c.getCount() != 0){
             while(c.moveToNext()){
@@ -298,8 +301,11 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 filmList.add(film);
             }
         }
-
         c.close();
+    }
+
+    public void inertFilmToBBDD(Film f){
+        db.execSQL("INSERT INTO film (Image, Title, Director, Year, Genre, Format, ImdURL, Comments) VALUES (" + f.getImageResId() + ", '" + f.getTitle() + "', '" + f.getDirector() + "', " + f.getYear() + ", " + f.getGenre() + ", " + f.getFormat() + ", '" + f.getImdbURL() + "', '" + f.getComments() + "')");
     }
 
     private boolean borrarPelicula(Film pelicula){
