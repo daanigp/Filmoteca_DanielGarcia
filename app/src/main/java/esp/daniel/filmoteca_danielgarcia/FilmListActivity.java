@@ -109,7 +109,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                         "Agregar película",
                         "Agregar director",
                         0000,
-                        Film.FORMAT_DVD,
+                        Film.FORMAT_DIGITAL,
                         Film.GENRE_ACTION,
                         "Agregar url",
                         "Agregar comentario"
@@ -117,8 +117,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 );
                 //FilmDataSource.films.add(pelicula);
                 inertFilmToBBDD(pelicula);
-                //filmList.add(pelicula);
-                listarBBDD();
+                filmList.add(pelicula);
+                //listarBBDD();
                 filmAdapter.notifyDataSetChanged();
 
 
@@ -186,8 +186,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(DialogInterface dialog, int which) {
                 //FilmDataSource.films.remove(pelicula);
                 if (borrarPelicula(pelicula)) {
-                    //filmList.remove(pelicula);
-                    listarBBDD();
+                    filmList.remove(pelicula);
+                    //listarBBDD();
                     filmAdapter.notifyDataSetChanged();
                     showToast("Has eliminado -> " + titulo);
                 } else {

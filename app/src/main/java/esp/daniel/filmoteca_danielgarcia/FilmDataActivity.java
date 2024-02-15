@@ -24,13 +24,12 @@ public class FilmDataActivity extends AppCompatActivity {
     SQLiteDatabase db;
 
     private static final int EDIT_OPTION = 16;
-    String anyo, formatoGenero;
-    int position, genero, formato;
+    int position;
     ImageView imgView;
     TextView txtComentario, txtFormatoGenero, txtNumAnyo, txtNomDirector, txtNomPelicula;
     Button btnWebIMDB, btnVolverMenu, btnEditar;
     View mensaje_layout;
-
+    Film film;
     ArrayList<Film> filmList;
 
     @Override
@@ -39,6 +38,7 @@ public class FilmDataActivity extends AppCompatActivity {
         setContentView(R.layout.film_data_activity);
 
         filmList = new ArrayList<>();
+        film = new Film();
 
         mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
@@ -110,11 +110,29 @@ public class FilmDataActivity extends AppCompatActivity {
         listFilmsFromBBDD();
         selectFilm();
 
+        imgView.setImageResource(film.getImageResId());
+        txtNomPelicula.setText(film.getTitle());
+        txtNomDirector.setText(film.getDirector());
+//        txtNumAnyo.setText(film.getYear());
 
+        String formato = getFormatoFromFilm();
+        String genero = getGeneroFromFilm();
+        txtFormatoGenero.setText(formato + genero);
 
+        btnWebIMDB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("Redirigiendote a la página de IMDB de la película:\n" + film.getTitle());
+
+                Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(film.getImdbURL()));
+                startActivity(intentWeb);
+            }
+        });
+
+        txtComentario.setText(film.getComments());
 
         //Botón web IMDB
-        btnWebIMDB.setOnClickListener(new View.OnClickListener() {
+        /*btnWebIMDB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showToast("Redirigiendote a la página de IMDB de la película:\n" + FilmDataSource.films.get(position).getTitle());
@@ -122,7 +140,7 @@ public class FilmDataActivity extends AppCompatActivity {
                 Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(FilmDataSource.films.get(position).getImdbURL()));
                 startActivity(intentWeb);
             }
-        });
+        });*/
 
         //Botón volver al menú
         btnVolverMenu.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +158,7 @@ public class FilmDataActivity extends AppCompatActivity {
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("Editar los datos de la pelicula:\n" + FilmDataSource.films.get(position).getTitle());
+                showToast("Editar los datos de la pelicula:\n" + filmList.get(position).getTitle());
 
                 Intent intentFilmEditActivity = new Intent(FilmDataActivity.this, FilmEditActivity.class);
                 intentFilmEditActivity.putExtra("FILM_POSITION", position);
@@ -154,6 +172,8 @@ public class FilmDataActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_OPTION){
             if (resultCode == RESULT_OK){
+                String formatoGenero, formato, genero, anyo;
+
                 showToast("Cambios aplicados correctamente.");
 
                 //Volvermos a cargar los datos del layout, por si se han editado algunos campos.
@@ -172,38 +192,12 @@ public class FilmDataActivity extends AppCompatActivity {
                 });
                 txtComentario.setText(FilmDataSource.films.get(position).getComments().toString());
 
-                formatoGenero = "";
-                formato = FilmDataSource.films.get(position).getFormat();
-                switch (formato){
-                    case 0:
-                        formatoGenero = "DVD, ";
-                        break;
-                    case 1:
-                        formatoGenero = "Bluray, ";
-                        break;
-                    case 2:
-                        formatoGenero = "Digital, ";
-                        break;
-                }
+                formato = getFormatoFromFilm();
+                genero = getGeneroFromFilm();
 
-                genero = FilmDataSource.films.get(position).getGenre();
-                switch (genero){
-                    case 0:
-                        formatoGenero = formatoGenero + "Action";
-                        break;
-                    case 1:
-                        formatoGenero = formatoGenero + "Comedy";
-                        break;
-                    case 2:
-                        formatoGenero = formatoGenero + "Drama";
-                        break;
-                    case 3:
-                        formatoGenero = formatoGenero + "Scifi";
-                        break;
-                    case 4:
-                        formatoGenero = formatoGenero + "Horror";
-                        break;
-                }
+                formatoGenero = formato + genero;
+
+
                 txtFormatoGenero.setText(formatoGenero);
 
 
@@ -247,7 +241,48 @@ public class FilmDataActivity extends AppCompatActivity {
     private void selectFilm(){
         Cursor c = db.rawQuery("SELECT * FROM film WHERE Id = " + position + ";", null);
         if (c.getCount() != 0){
-            txtNomPelicula.setText(c.getString(2));
+            film.setImageResId(c.getInt(1));
+            film.setTitle(c.getString(2));
+            film.setDirector(c.getString(3));
+            film.setYear(c.getInt(4));
+            film.setGenre(c.getInt(5));
+            film.setFormat(c.getInt(6));
+            film.setImdbURL(c.getString(7));
+            film.setComments(c.getString(8));
+        }
+    }
+
+    public String getFormatoFromFilm(){
+        int posiconFormato = film.getFormat();
+
+        switch (posiconFormato){
+            case 0:
+                return "DVD, ";
+            case 1:
+                return "Bluray, ";
+            case 2:
+                return "Digital, ";
+            default:
+                return "";
+        }
+    }
+
+    public String getGeneroFromFilm(){
+        int posicioGenero = film.getGenre();
+
+        switch (posicioGenero){
+            case 0:
+                return "Action";
+            case 1:
+                return "Comedy";
+            case 2:
+                return "Drama";
+            case 3:
+                return "Scifi";
+            case 4:
+                return "Horror";
+            default:
+                return "";
         }
     }
 }
