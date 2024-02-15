@@ -117,11 +117,17 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 );
                 //FilmDataSource.films.add(pelicula);
                 inertFilmToBBDD(pelicula);
-                filmList.add(pelicula);
+                //filmList.add(pelicula);
+                listarBBDD();
                 filmAdapter.notifyDataSetChanged();
-                //listarBBDD();
+
 
                 mostrarNotificacion(true, true, pelicula);
+                return true;
+            case R.id.itemMasInfo:
+                //Nos lleva a la actividad MoreActivity
+                Intent intentMasInfo = new Intent(FilmListActivity.this, MoreActivity.class);
+                startActivity(intentMasInfo);
                 return true;
         }
 
@@ -180,9 +186,9 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
             public void onClick(DialogInterface dialog, int which) {
                 //FilmDataSource.films.remove(pelicula);
                 if (borrarPelicula(pelicula)) {
+                    //filmList.remove(pelicula);
+                    listarBBDD();
                     filmAdapter.notifyDataSetChanged();
-                    //listarBBDD();
-                    filmList.remove(pelicula);
                     showToast("Has eliminado -> " + titulo);
                 } else {
                     showToast("No se puede eliminar la pelicula");
