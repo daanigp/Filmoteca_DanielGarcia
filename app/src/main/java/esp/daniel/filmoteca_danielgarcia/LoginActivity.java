@@ -43,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
                 String user, password;
                 user = txtUsername.getText().toString();
                 password = txtPassword.getText().toString();
+                txtUsername.setText("");
+                txtPassword.setText("");
                 signIn(user, password);
             }
         });
@@ -51,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                txtUsername.setText("");
+                txtPassword.setText("");
                 signUp();
             }
         });

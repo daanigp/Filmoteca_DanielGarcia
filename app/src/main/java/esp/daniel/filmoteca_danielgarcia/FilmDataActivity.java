@@ -114,8 +114,8 @@ public class FilmDataActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_OPTION){
             if (resultCode == RESULT_OK){
+                filmList.clear();
                 filmData(listFilmsFromBBDD());
-                setResult(RESULT_OK, null);
             } else {
                 showToast("Los cambios han sido cancelados.");
             }
@@ -158,6 +158,7 @@ public class FilmDataActivity extends AppCompatActivity {
     private void filmData(Film film){
 
         if (film != null) {
+
             imgView.setImageResource(film.getImageResId());
             txtNomPelicula.setText(film.getTitle());
             txtNomDirector.setText(film.getDirector());

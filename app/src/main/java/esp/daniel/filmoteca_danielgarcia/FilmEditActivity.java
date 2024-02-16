@@ -226,8 +226,7 @@ public class FilmEditActivity extends AppCompatActivity {
             btnCancelar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intentCancel = new Intent();
-                    setResult(RESULT_CANCELED, intentCancel);
+                    setResult(RESULT_CANCELED);
                     finish();
                 }
             });
