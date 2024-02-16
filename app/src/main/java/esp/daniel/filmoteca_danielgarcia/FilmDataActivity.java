@@ -57,55 +57,7 @@ public class FilmDataActivity extends AppCompatActivity {
         //Coger la posición de la película mediante el intent
         Intent intent = getIntent();
         position = intent.getIntExtra("FILM_POSITION", 0);
-/*
-        //Asignamos los valores de la película que pulsamos en la FilmListActivity al layout
-        imgView.setImageResource(FilmDataSource.films.get(position).getImageResId());
-        txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
-        txtNomDirector.setText(FilmDataSource.films.get(position).getDirector().toString());
 
-        anyo = String.valueOf(FilmDataSource.films.get(position).getYear());
-        txtNumAnyo.setText(anyo);
-
-        formatoGenero = "";
-
-        formato = FilmDataSource.films.get(position).getFormat();
-        switch (formato){
-            case 0:
-                formatoGenero = "DVD, ";
-                break;
-            case 1:
-                formatoGenero = "Bluray, ";
-                break;
-            case 2:
-                formatoGenero = "Digital, ";
-                break;
-        }
-
-        genero = FilmDataSource.films.get(position).getGenre();
-        switch (genero){
-            case 0:
-                formatoGenero = formatoGenero + "Action";
-                break;
-            case 1:
-                formatoGenero = formatoGenero + "Comedy";
-                break;
-            case 2:
-                formatoGenero = formatoGenero + "Drama";
-                break;
-            case 3:
-                formatoGenero = formatoGenero + "Scifi";
-                break;
-            case 4:
-                formatoGenero = formatoGenero + "Horror";
-                break;
-        }
-
-        txtFormatoGenero.setText(formatoGenero);
-
-        txtComentario.setText(FilmDataSource.films.get(position).getComments().toString());
-        */
-
-        //listFilmsFromBBDD();
         filmData(listFilmsFromBBDD());
     }
 

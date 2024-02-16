@@ -26,13 +26,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.Format;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class FilmListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -43,6 +39,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
     ListView listaPeliculas;
     View mensaje_layout;
     ArrayList<Film> filmList;
+    Random rnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +47,17 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_film_list);
 
         filmList = new ArrayList<>();
+        rnd = new Random();
 
         mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
         db = openOrCreateDatabase("FilmSource", Context.MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS film(Id INTEGER PRIMARY KEY, Image INTEGER, Title VARCHAR, Director VARCHAR, Year INTEGER, Genre INTEGER, Format INTEGER, ImdURL VARCHAR, Comments VARCHAR);");
 
-        //FilmDataSource.Inizialize();
-
         listarBBDD();
 
         listaPeliculas = (ListView) findViewById(R.id.listaPeliculas);
-        //filmAdapter = new FilmAdapter(this, R.layout.item_film, FilmDataSource.films);
         filmAdapter = new FilmAdapter(getApplicationContext(), R.layout.item_film, filmList);
-
 
         listaPeliculas.setAdapter(filmAdapter);
         listaPeliculas.setOnItemClickListener(this);
@@ -92,42 +86,38 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 Intent intentAbout = new Intent(FilmListActivity.this, AboutActivity.class);
                 startActivity(intentAbout);
                 return true;
-            case R.id.itemNuevaPeli:
+            case R.id.itemNuevaPeliVacia:
                 //Añade una nueva película al ArrayList
-                /*Toast mensaje2 = new Toast(FilmListActivity.this);
-                mensaje2.setView(mensaje_layout);
-
-                TextView texto2 = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                texto2.setText("Has pulsado sobre Añadir película.");
-                mensaje2.setDuration(Toast.LENGTH_SHORT);
-                mensaje2.show();*/
-                showToast("Has pulsado sobre Añadir película.");
+                showToast("Has pulsado sobre Añadir película vacía.");
 
                 Film pelicula = new Film(
                         filmList.size(),
-                        R.drawable.icono_img,
+                        selectImg(),
                         "Agregar película",
                         "Agregar director",
                         0000,
-                        Film.FORMAT_DIGITAL,
-                        Film.GENRE_ACTION,
+                        selectFormat(),
+                        selectGenre(),
                         "Agregar url",
                         "Agregar comentario"
 
                 );
-                //FilmDataSource.films.add(pelicula);
                 insertFilmToBBDD(pelicula);
                 filmList.add(pelicula);
-                //listarBBDD();
                 filmAdapter.notifyDataSetChanged();
-
 
                 mostrarNotificacion(true, true, pelicula);
                 return true;
+
             case R.id.itemMasInfo:
                 //Nos lleva a la actividad MoreActivity
                 Intent intentMasInfo = new Intent(FilmListActivity.this, MoreActivity.class);
                 startActivity(intentMasInfo);
+                return true;
+
+            case R.id.itemSalir:
+                Intent intentSalir = new Intent(FilmListActivity.this, LoginActivity.class);
+                startActivity(intentSalir);
                 return true;
         }
 
@@ -186,10 +176,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //FilmDataSource.films.remove(pelicula);
                 if (borrarPelicula(pelicula)) {
                     filmList.remove(pelicula);
-                    //listarBBDD();
                     filmAdapter.notifyDataSetChanged();
                     showToast("Has eliminado -> " + titulo);
                 } else {
@@ -230,7 +218,6 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
             builder.setStyle(estilo);
 
-            //int position = FilmDataSource.films.size() - 1;
             int position = filmList.size() - 1;
 
             Intent intentEditFilm = new Intent(FilmListActivity.this, FilmEditActivity.class);
@@ -326,5 +313,49 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         }
         c.close();
         return borrado;
+    }
+
+    private int selectImg(){
+        int numRandom = rnd.nextInt(5);
+        switch (numRandom) {
+            case 1:
+                return R.drawable.icono_img;
+            case 2:
+                return R.drawable.icono_img2;
+            case 3:
+                return R.drawable.icono_img3;
+            case 4:
+                return R.drawable.icono_img4;
+            default:
+                return R.drawable.icono_img5;
+        }
+    }
+
+    private int selectFormat(){
+        int num = rnd.nextInt(3);
+        switch (num){
+            case 1:
+                return Film.FORMAT_DVD;
+            case 2:
+                return Film.FORMAT_BLURAY;
+            default:
+                return Film.FORMAT_DIGITAL;
+        }
+    }
+
+    private int selectGenre(){
+        int num = rnd.nextInt(5);
+        switch (num){
+            case 1:
+                return Film.GENRE_ACTION;
+            case 2:
+                return Film.GENRE_COMEDY;
+            case 3:
+                return Film.GENRE_DRAMA;
+            case 4:
+                return Film.GENRE_SCIFI;
+            default:
+                return Film.GENRE_HORROR;
+        }
     }
 }

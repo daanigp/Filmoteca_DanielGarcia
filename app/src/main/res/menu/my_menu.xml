@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:title="@string/acercaDe" />
     <item
-        android:id="@+id/itemNuevaPeli"
+        android:id="@+id/itemNuevaPeliVacia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/NuevaPeli" />
@@ -15,5 +15,10 @@
         android:id="@+id/itemMasInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="@string/masInfo" />
+        android:title="@string/masInfo" ></item>
+    <item
+        android:id="@+id/itemSalir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/salir" />
 </menu>

@@ -27,8 +27,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
-        //imgLogin = (ImageView) findViewById(R.id.imgLogin);
-
         txtUser = (EditText) findViewById(R.id.txtUsernameSignUp);
         txtPassword = (EditText) findViewById(R.id.txtPasswordSignUp);
 

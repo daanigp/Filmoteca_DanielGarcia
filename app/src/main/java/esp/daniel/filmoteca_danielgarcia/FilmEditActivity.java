@@ -64,38 +64,7 @@ public class FilmEditActivity extends AppCompatActivity {
         spnGenero = (Spinner) findViewById(R.id.spnGenero);
         spnFormato = (Spinner) findViewById(R.id.spnFormato);
 
-/*
-        //Imagen película
-        imgFilm.setImageResource(FilmDataSource.films.get(posicion).getImageResId());
-
-        //EDIT TEXT (todos)
-            //Titulo
-        txtEditTitulo.setText(FilmDataSource.films.get(posicion).getTitle().toString());
-
-            //Director
-        txtEditDirector.setText(FilmDataSource.films.get(posicion).getDirector().toString());
-
-            //Año
-        String anyo = String.valueOf(FilmDataSource.films.get(posicion).getYear());
-        txtEditAnyo.setText(anyo);
-
-            //Web
-        txtEditWeb.setText(FilmDataSource.films.get(posicion).getImdbURL().toString());
-
-            //Comentario
-        txtEditComentario.setText(FilmDataSource.films.get(posicion).getComments().toString());
-
-        //Spinners (los 2)
-            //Generos
-        spnGenero.setSelection(FilmDataSource.films.get(posicion).getGenre());
-
-            //Formatos
-        spnFormato.setSelection(FilmDataSource.films.get(posicion).getFormat());
-*/
-
         filmData(listFilmsFromBBDD());
-
-
     }
 
     @Override
@@ -145,20 +114,12 @@ public class FilmEditActivity extends AppCompatActivity {
     }
 
     private void filmData(Film film){
-        //Cursor c = db.rawQuery("SELECT * FROM film WHERE Id = " + posicion + ";", null);
         if (film != null) {
             //Botón capturar imagen
             btnCapturarImg = (Button) findViewById(R.id.btnCapturarImg);
             btnCapturarImg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                /*Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
-                mensajeNoFunciona.setView(mensaje_layout);
-
-                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                text.setText("Funcionalidad no implementada.");
-                mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
-                mensajeNoFunciona.show();*/
                     int estado = ContextCompat.checkSelfPermission(FilmEditActivity.this, Manifest.permission.CAMERA);
 
                     if (estado == PackageManager.PERMISSION_GRANTED){

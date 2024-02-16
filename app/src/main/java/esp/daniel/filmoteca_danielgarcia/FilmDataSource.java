@@ -219,9 +219,4 @@ public class FilmDataSource {
         ));
 
     }
-
-    public static void Read_File(){
-
-    }
-
 }
