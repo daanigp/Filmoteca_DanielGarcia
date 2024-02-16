@@ -29,7 +29,6 @@ public class FilmDataActivity extends AppCompatActivity {
     TextView txtComentario, txtFormatoGenero, txtNumAnyo, txtNomDirector, txtNomPelicula;
     Button btnWebIMDB, btnVolverMenu, btnEditar;
     View mensaje_layout;
-    Film film;
     ArrayList<Film> filmList;
 
     @Override
@@ -38,7 +37,6 @@ public class FilmDataActivity extends AppCompatActivity {
         setContentView(R.layout.film_data_activity);
 
         filmList = new ArrayList<>();
-        film = new Film();
 
         mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
@@ -107,64 +105,8 @@ public class FilmDataActivity extends AppCompatActivity {
         txtComentario.setText(FilmDataSource.films.get(position).getComments().toString());
         */
 
-        listFilmsFromBBDD();
-        selectFilm();
-
-        imgView.setImageResource(film.getImageResId());
-        txtNomPelicula.setText(film.getTitle());
-        txtNomDirector.setText(film.getDirector());
-//        txtNumAnyo.setText(film.getYear());
-
-        String formato = getFormatoFromFilm();
-        String genero = getGeneroFromFilm();
-        txtFormatoGenero.setText(formato + genero);
-
-        btnWebIMDB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showToast("Redirigiendote a la página de IMDB de la película:\n" + film.getTitle());
-
-                Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(film.getImdbURL()));
-                startActivity(intentWeb);
-            }
-        });
-
-        txtComentario.setText(film.getComments());
-
-        //Botón web IMDB
-        /*btnWebIMDB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showToast("Redirigiendote a la página de IMDB de la película:\n" + FilmDataSource.films.get(position).getTitle());
-
-                Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(FilmDataSource.films.get(position).getImdbURL()));
-                startActivity(intentWeb);
-            }
-        });*/
-
-        //Botón volver al menú
-        btnVolverMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showToast("Volviendo al menú principal");
-
-                Intent intentVolver = new Intent();
-                setResult(RESULT_OK, intentVolver);
-                finish();
-            }
-        });
-
-        //Botón guardar
-        btnEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showToast("Editar los datos de la pelicula:\n" + filmList.get(position).getTitle());
-
-                Intent intentFilmEditActivity = new Intent(FilmDataActivity.this, FilmEditActivity.class);
-                intentFilmEditActivity.putExtra("FILM_POSITION", position);
-                startActivityForResult(intentFilmEditActivity, EDIT_OPTION);
-            }
-        });
+        //listFilmsFromBBDD();
+        filmData(listFilmsFromBBDD());
     }
 
     @Override
@@ -172,35 +114,8 @@ public class FilmDataActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EDIT_OPTION){
             if (resultCode == RESULT_OK){
-                String formatoGenero, formato, genero, anyo;
-
-                showToast("Cambios aplicados correctamente.");
-
-                //Volvermos a cargar los datos del layout, por si se han editado algunos campos.
-                txtNomPelicula.setText(FilmDataSource.films.get(position).getTitle().toString());
-                txtNomDirector.setText(FilmDataSource.films.get(position).getDirector().toString());
-                anyo = String.valueOf(FilmDataSource.films.get(position).getYear());
-                txtNumAnyo.setText(anyo);
-                btnWebIMDB.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showToast("Redirigiendote a la página de IMDB de la película:\n" + FilmDataSource.films.get(position).getTitle());
-
-                        Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(FilmDataSource.films.get(position).getImdbURL()));
-                        startActivity(intentWeb);
-                    }
-                });
-                txtComentario.setText(FilmDataSource.films.get(position).getComments().toString());
-
-                formato = getFormatoFromFilm();
-                genero = getGeneroFromFilm();
-
-                formatoGenero = formato + genero;
-
-
-                txtFormatoGenero.setText(formatoGenero);
-
-
+                filmData(listFilmsFromBBDD());
+                setResult(RESULT_OK, null);
             } else {
                 showToast("Los cambios han sido cancelados.");
             }
@@ -218,11 +133,12 @@ public class FilmDataActivity extends AppCompatActivity {
         mensajeFilmData.show();
     }
 
-    private void listFilmsFromBBDD(){
+    private Film listFilmsFromBBDD(){
         Cursor c = db.rawQuery("SELECT * FROM film", null);
         if(c.getCount() != 0){
             while(c.moveToNext()){
                 Film film = new Film();
+                film.setId(c.getInt(0));
                 film.setImageResId(c.getInt(1));
                 film.setTitle(c.getString(2));
                 film.setDirector(c.getString(3));
@@ -236,23 +152,61 @@ public class FilmDataActivity extends AppCompatActivity {
             }
         }
         c.close();
+        return filmList.get(position);
     }
 
-    private void selectFilm(){
-        Cursor c = db.rawQuery("SELECT * FROM film WHERE Id = " + position + ";", null);
-        if (c.getCount() != 0){
-            film.setImageResId(c.getInt(1));
-            film.setTitle(c.getString(2));
-            film.setDirector(c.getString(3));
-            film.setYear(c.getInt(4));
-            film.setGenre(c.getInt(5));
-            film.setFormat(c.getInt(6));
-            film.setImdbURL(c.getString(7));
-            film.setComments(c.getString(8));
+    private void filmData(Film film){
+
+        if (film != null) {
+            imgView.setImageResource(film.getImageResId());
+            txtNomPelicula.setText(film.getTitle());
+            txtNomDirector.setText(film.getDirector());
+            String year = String.valueOf(film.getYear());
+            txtNumAnyo.setText(year);
+
+            String formato = getFormatoFromFilm(film);
+            String genero = getGeneroFromFilm(film);
+            txtFormatoGenero.setText(formato + genero);
+
+            //Botón web IMDB
+            btnWebIMDB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showToast("Redirigiendote a la página de IMDB de la película:\n" + film.getTitle());
+
+                    Intent intentWeb = new Intent(Intent.ACTION_VIEW, Uri.parse(film.getImdbURL()));
+                    startActivity(intentWeb);
+                }
+            });
+
+            txtComentario.setText(film.getComments());
+
+            //Botón volver al menú
+            btnVolverMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showToast("Volviendo al menú principal");
+                    setResult(RESULT_OK);
+                    finish();
+                }
+            });
+
+            //Botón guardar
+            btnEditar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showToast("Editar los datos de la pelicula:\n" + film.getTitle());
+
+                    Intent intentFilmEditActivity = new Intent(FilmDataActivity.this, FilmEditActivity.class);
+                    intentFilmEditActivity.putExtra("FILM_POSITION", position);
+                    startActivityForResult(intentFilmEditActivity, EDIT_OPTION);
+                }
+            });
         }
+
     }
 
-    public String getFormatoFromFilm(){
+    public String getFormatoFromFilm(Film film){
         int posiconFormato = film.getFormat();
 
         switch (posiconFormato){
@@ -267,7 +221,7 @@ public class FilmDataActivity extends AppCompatActivity {
         }
     }
 
-    public String getGeneroFromFilm(){
+    public String getGeneroFromFilm(Film film){
         int posicioGenero = film.getGenre();
 
         switch (posicioGenero){

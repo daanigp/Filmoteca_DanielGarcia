@@ -42,7 +42,6 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
     FilmAdapter filmAdapter;
     ListView listaPeliculas;
     View mensaje_layout;
-
     ArrayList<Film> filmList;
 
     @Override
@@ -55,7 +54,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
         db = openOrCreateDatabase("FilmSource", Context.MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS film(Id INTEGER PRIMARY KEY AUTOINCREMENT, Image INTEGER, Title VARCHAR, Director VARCHAR, Year INTEGER, Genre INTEGER, Format INTEGER, ImdURL VARCHAR, Comments VARCHAR);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS film(Id INTEGER PRIMARY KEY, Image INTEGER, Title VARCHAR, Director VARCHAR, Year INTEGER, Genre INTEGER, Format INTEGER, ImdURL VARCHAR, Comments VARCHAR);");
 
         //FilmDataSource.Inizialize();
 
@@ -63,7 +62,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
         listaPeliculas = (ListView) findViewById(R.id.listaPeliculas);
         //filmAdapter = new FilmAdapter(this, R.layout.item_film, FilmDataSource.films);
-        filmAdapter = new FilmAdapter(this, R.layout.item_film, filmList);
+        filmAdapter = new FilmAdapter(getApplicationContext(), R.layout.item_film, filmList);
 
 
         listaPeliculas.setAdapter(filmAdapter);
@@ -105,6 +104,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 showToast("Has pulsado sobre Añadir película.");
 
                 Film pelicula = new Film(
+                        filmList.size(),
                         R.drawable.icono_img,
                         "Agregar película",
                         "Agregar director",
@@ -116,7 +116,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
 
                 );
                 //FilmDataSource.films.add(pelicula);
-                inertFilmToBBDD(pelicula);
+                insertFilmToBBDD(pelicula);
                 filmList.add(pelicula);
                 //listarBBDD();
                 filmAdapter.notifyDataSetChanged();
@@ -149,6 +149,8 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == DATA_FILM){
             if (resultCode == RESULT_OK){
+                filmList.clear();
+                listarBBDD();
                 filmAdapter.notifyDataSetChanged();
             }
         }
@@ -198,7 +200,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                showToast("TRANQUILO! No has eliminado ninguna película");
+                showToast("¡TRANQUILO! No has eliminado ninguna película");
             }
         });
 
@@ -295,6 +297,7 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         if(c.getCount() != 0){
             while(c.moveToNext()){
                 Film film = new Film();
+                film.setId(c.getInt(0));
                 film.setImageResId(c.getInt(1));
                 film.setTitle(c.getString(2));
                 film.setDirector(c.getString(3));
@@ -310,15 +313,15 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
         c.close();
     }
 
-    public void inertFilmToBBDD(Film f){
+    public void insertFilmToBBDD(Film f){
         db.execSQL("INSERT INTO film (Image, Title, Director, Year, Genre, Format, ImdURL, Comments) VALUES (" + f.getImageResId() + ", '" + f.getTitle() + "', '" + f.getDirector() + "', " + f.getYear() + ", " + f.getGenre() + ", " + f.getFormat() + ", '" + f.getImdbURL() + "', '" + f.getComments() + "')");
     }
 
     private boolean borrarPelicula(Film pelicula){
         boolean borrado = false;
-        Cursor c = db.rawQuery("SELECT * FROM film WHERE Title = '" + pelicula.getTitle() + "' AND Director = '" + pelicula.getDirector() + "';", null);
+        Cursor c = db.rawQuery("SELECT * FROM film WHERE id = " + pelicula.getId() + ";", null);
         if (c.getCount() != 0){
-            db.execSQL("DELETE FROM film WHERE Title = '" + pelicula.getTitle() + "' AND Director = '" + pelicula.getDirector() + "';");
+            db.execSQL("DELETE FROM film WHERE id = " + pelicula.getId() + ";");
             borrado = true;
         }
         c.close();

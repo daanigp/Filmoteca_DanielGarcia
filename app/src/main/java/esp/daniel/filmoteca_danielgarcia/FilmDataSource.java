@@ -13,6 +13,7 @@ public class FilmDataSource {
         films = new ArrayList<Film>();
 
         films.add(new Film(
+            1,
             R.drawable.interestelar,
             "Interestelar",
             "Cristopher Nolan",
@@ -24,6 +25,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+            2,
             R.drawable.forrest_gump,
             "Forrest Gump",
             "Robert Zemeckis",
@@ -35,6 +37,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+            3,
             R.drawable.cadena_perpetua,
             "Cadena perpetua",
             "Frank Darabont",
@@ -46,6 +49,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+            4,
             R.drawable.doctor_strange,
             "Doctor Strange",
             "Scott Derrickson",
@@ -57,6 +61,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+            5,
             R.drawable.avengers,
             "Los vengadores",
             "Joss Whedon",
@@ -68,6 +73,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+            6,
             R.drawable.avengers2,
             "Vengadores: La era de Ultrón",
             "Joss Whedon",
@@ -79,6 +85,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+            7,
             R.drawable.avengers3,
             "Vengadores: Infinity War",
             "Anthony Russo - Joe Russo",
@@ -90,6 +97,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+            8,
             R.drawable.avengers4,
             "Vengadores: End Game",
             "Anthony Russo - Joe Russo",
@@ -101,17 +109,19 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
-                R.drawable.ted,
-                "Ted",
-                "Seth MacFarlane",
-                2012,
-                Film.GENRE_COMEDY,
-                Film.FORMAT_DVD,
-                "https://www.imdb.com/title/tt1637725/?ref_=nv_sr_srsg_3_tt_4_nm_4_q_ted",
-                "John Bennett, un hombre cuyo deseo de la infancia de dar vida a su oso de peluche se hizo realidad, ahora debe decidir entre mantener la relación con el oso, Ted, o su novia, Lori."
+            9,
+            R.drawable.ted,
+            "Ted",
+            "Seth MacFarlane",
+            2012,
+            Film.GENRE_COMEDY,
+            Film.FORMAT_DVD,
+            "https://www.imdb.com/title/tt1637725/?ref_=nv_sr_srsg_3_tt_4_nm_4_q_ted",
+            "John Bennett, un hombre cuyo deseo de la infancia de dar vida a su oso de peluche se hizo realidad, ahora debe decidir entre mantener la relación con el oso, Ted, o su novia, Lori."
         ));
 
         films.add(new Film(
+                10,
                 R.drawable.ted2,
                 "Ted 2",
                 "Seth MacFarlane",
@@ -123,6 +133,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+                11,
                 R.drawable.oppenheimer,
                 "Oppenheimer",
                 "Christopher Nolan",
@@ -134,6 +145,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+                12,
                 R.drawable.en_busca_del_arca_perdida,
                 "En busca del arca perdida",
                 "Steven Spielberg",
@@ -145,6 +157,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+                13,
                 R.drawable.loca_academia_de_policia,
                 "Loca academia de policia",
                 "Hugh Wilson",
@@ -157,6 +170,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+                14,
                 R.drawable.saw,
                 "Saw",
                 "James Wan",
@@ -168,6 +182,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+                15,
                 R.drawable.jurassic_park,
                 "Jurassic Park",
                 "Steven Spielberg",
@@ -179,6 +194,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+                16,
                 R.drawable.jurassic_world,
                 "Jurassic World",
                 "Colin Trevorrow",
@@ -191,6 +207,7 @@ public class FilmDataSource {
         ));
 
         films.add(new Film(
+                17,
                 R.drawable.milla_verde,
                 "La milla verde",
                 "Frank Darabont",

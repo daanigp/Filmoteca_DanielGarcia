@@ -30,13 +30,12 @@ public class FilmEditActivity extends AppCompatActivity {
     SQLiteDatabase db;
     private final int CANAL_ID = 33;
     private static final int CODIGO_PERMISOS_CAMARA = 123;
-    int posicion;
+    int position;
     ImageView imgFilm;
     Button btnGuardar, btnCapturarImg, btnSelectImg, btnCancelar;
     Spinner spnFormato, spnGenero;
     EditText txtEditTitulo, txtEditDirector, txtEditAnyo, txtEditWeb, txtEditComentario;
     View mensaje_layout;
-    Film film;
     ArrayList<Film> filmList;
 
     @Override
@@ -45,14 +44,13 @@ public class FilmEditActivity extends AppCompatActivity {
         setContentView(R.layout.edit_film);
 
         filmList = new ArrayList<>();
-        film = new Film();
         db = openOrCreateDatabase("FilmSource", Context.MODE_PRIVATE, null);
 
         mensaje_layout = getLayoutInflater().inflate(R.layout.toast_customized, null);
 
         //Posición del intent
         Intent intentFilmDataActivity = getIntent();
-        posicion = intentFilmDataActivity.getIntExtra("FILM_POSITION", 0);
+        position = intentFilmDataActivity.getIntExtra("FILM_POSITION", 0);
 
         //Para borrar la notificación cuando se pulse sobre ella
         ((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE)).cancel(CANAL_ID);
@@ -65,39 +63,6 @@ public class FilmEditActivity extends AppCompatActivity {
         txtEditComentario = (EditText) findViewById(R.id.txtEditComentario);
         spnGenero = (Spinner) findViewById(R.id.spnGenero);
         spnFormato = (Spinner) findViewById(R.id.spnFormato);
-
-        //Botón capturar imagen
-        btnCapturarImg = (Button) findViewById(R.id.btnCapturarImg);
-        btnCapturarImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
-                mensajeNoFunciona.setView(mensaje_layout);
-
-                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
-                text.setText("Funcionalidad no implementada.");
-                mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
-                mensajeNoFunciona.show();*/
-                int estado = ContextCompat.checkSelfPermission(FilmEditActivity.this, Manifest.permission.CAMERA);
-
-                if (estado == PackageManager.PERMISSION_GRANTED){
-                    Intent intentCamara = new Intent("android.media.action.IMAGE_CAPTURE");
-                    startActivity(intentCamara);
-                } else {
-                    ActivityCompat.requestPermissions(FilmEditActivity.this, new String[]{android.Manifest.permission.CAMERA}, CODIGO_PERMISOS_CAMARA);
-                }
-
-            }
-        });
-
-        //Botón seleccionar imagen
-        btnSelectImg = (Button) findViewById(R.id.btnSelectImg);
-        btnSelectImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showToast("Funcionalidad no implementada.");
-            }
-        });
 
 /*
         //Imagen película
@@ -128,40 +93,9 @@ public class FilmEditActivity extends AppCompatActivity {
         spnFormato.setSelection(FilmDataSource.films.get(posicion).getFormat());
 */
 
-        listFilmsFromBBDD();
-        selectFilm();
-
-        //Botón guardar
-        btnGuardar = (Button) findViewById(R.id.btnGuardar);
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Actualizamos la película que teníamos creada con los nuevos datos que hemos recogido.
-                FilmDataSource.films.get(posicion).setTitle(txtEditTitulo.getText().toString());
-                FilmDataSource.films.get(posicion).setDirector(txtEditDirector.getText().toString());
-                int year = Integer.parseInt(txtEditAnyo.getText().toString());
-                FilmDataSource.films.get(posicion).setYear(year);
-                FilmDataSource.films.get(posicion).setImdbURL(txtEditWeb.getText().toString());
-                FilmDataSource.films.get(posicion).setComments(txtEditComentario.getText().toString());
-                FilmDataSource.films.get(posicion).setFormat(spnFormato.getSelectedItemPosition());
-                FilmDataSource.films.get(posicion).setGenre(spnGenero.getSelectedItemPosition());
-
-                setResult(RESULT_OK, null);
-                finish();
-            }
-        });
+        filmData(listFilmsFromBBDD());
 
 
-        //Botón cancelar
-        btnCancelar = (Button) findViewById(R.id.btnCancelar);
-        btnCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentCancel = new Intent();
-                setResult(RESULT_CANCELED, intentCancel);
-                finish();
-            }
-        });
     }
 
     @Override
@@ -188,11 +122,12 @@ public class FilmEditActivity extends AppCompatActivity {
         mensajeFilmEdit.show();
     }
 
-    private void listFilmsFromBBDD(){
+    private Film listFilmsFromBBDD(){
         Cursor c = db.rawQuery("SELECT * FROM film", null);
         if(c.getCount() != 0){
             while(c.moveToNext()){
                 Film film = new Film();
+                film.setId(c.getInt(0));
                 film.setImageResId(c.getInt(1));
                 film.setTitle(c.getString(2));
                 film.setDirector(c.getString(3));
@@ -205,67 +140,97 @@ public class FilmEditActivity extends AppCompatActivity {
                 filmList.add(film);
             }
         }
-        c.close();
+
+        return filmList.get(position);
     }
 
-    private void selectFilm(){
-        Cursor c = db.rawQuery("SELECT * FROM film WHERE Id = " + posicion + ";", null);
-        if (c.getCount() != 0){
-            film.setImageResId(c.getInt(1));
-            film.setTitle(c.getString(2));
-            film.setDirector(c.getString(3));
-            film.setYear(c.getInt(4));
-            film.setGenre(c.getInt(5));
-            film.setFormat(c.getInt(6));
-            film.setImdbURL(c.getString(7));
-            film.setComments(c.getString(8));
+    private void filmData(Film film){
+        //Cursor c = db.rawQuery("SELECT * FROM film WHERE Id = " + posicion + ";", null);
+        if (film != null) {
+            //Botón capturar imagen
+            btnCapturarImg = (Button) findViewById(R.id.btnCapturarImg);
+            btnCapturarImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                /*Toast mensajeNoFunciona = new Toast(FilmEditActivity.this);
+                mensajeNoFunciona.setView(mensaje_layout);
+
+                TextView text = (TextView) mensaje_layout.findViewById(R.id.toastMessage);
+                text.setText("Funcionalidad no implementada.");
+                mensajeNoFunciona.setDuration(Toast.LENGTH_SHORT);
+                mensajeNoFunciona.show();*/
+                    int estado = ContextCompat.checkSelfPermission(FilmEditActivity.this, Manifest.permission.CAMERA);
+
+                    if (estado == PackageManager.PERMISSION_GRANTED){
+                        Intent intentCamara = new Intent("android.media.action.IMAGE_CAPTURE");
+                        startActivity(intentCamara);
+                    } else {
+                        ActivityCompat.requestPermissions(FilmEditActivity.this, new String[]{android.Manifest.permission.CAMERA}, CODIGO_PERMISOS_CAMARA);
+                    }
+
+                }
+            });
+
+            //Botón seleccionar imagen
+            btnSelectImg = (Button) findViewById(R.id.btnSelectImg);
+            btnSelectImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showToast("Funcionalidad no implementada.");
+                }
+            });
 
             imgFilm.setImageResource(film.getImageResId());
 
             txtEditTitulo.setText(film.getTitle());
             txtEditDirector.setText(film.getDirector());
-            txtEditAnyo.setText(film.getYear());
+            txtEditAnyo.setText(String.valueOf(film.getYear()));
 
             spnGenero.setSelection(film.getGenre());
             spnFormato.setSelection(film.getFormat());
 
             txtEditWeb.setText(film.getImdbURL());
 
-            txtEditComentario.setText(c.getString(8));
-        }
-    }
+            txtEditComentario.setText(film.getComments());
 
-    public String getFormatoFromFilm(){
-        int posiconFormato = film.getFormat();
+            //Botón guardar
+            btnGuardar = (Button) findViewById(R.id.btnGuardar);
+            btnGuardar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Film newFilm = new Film();
+                    newFilm.setId(film.getId());
+                    newFilm.setImageResId(film.getImageResId());
+                    newFilm.setTitle(txtEditTitulo.getText().toString());
+                    newFilm.setDirector(txtEditDirector.getText().toString());
+                    newFilm.setYear(Integer.parseInt(txtEditAnyo.getText().toString()));
+                    newFilm.setGenre(spnGenero.getSelectedItemPosition());
+                    newFilm.setFormat(spnFormato.getSelectedItemPosition());
+                    newFilm.setImdbURL(txtEditWeb.getText().toString());
+                    newFilm.setComments(txtEditComentario.getText().toString());
 
-        switch (posiconFormato){
-            case 0:
-                return "DVD, ";
-            case 1:
-                return "Bluray, ";
-            case 2:
-                return "Digital, ";
-            default:
-                return "";
-        }
-    }
+                    //Actualizamos la película que teníamos creada con los nuevos datos que hemos recogido.
+                    db.execSQL("UPDATE film SET Title = '" + newFilm.getTitle() + "',  Director = '" + newFilm.getDirector() + "', Year = " + newFilm.getYear() + ", Genre = " + newFilm.getGenre() + ", Format = " + newFilm.getFormat() + ", ImdURL = '" + newFilm.getImdbURL() + "', Comments = '" + newFilm.getComments() + "' " +
+                                "WHERE Id = " + film.getId() + ";");
 
-    public String getGeneroFromFilm(){
-        int posicioGenero = film.getGenre();
+                    showToast("Pelicula actualizada correctamente.");
 
-        switch (posicioGenero){
-            case 0:
-                return "Action";
-            case 1:
-                return "Comedy";
-            case 2:
-                return "Drama";
-            case 3:
-                return "Scifi";
-            case 4:
-                return "Horror";
-            default:
-                return "";
+                    setResult(RESULT_OK, null);
+                    finish();
+                }
+            });
+
+
+            //Botón cancelar
+            btnCancelar = (Button) findViewById(R.id.btnCancelar);
+            btnCancelar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intentCancel = new Intent();
+                    setResult(RESULT_CANCELED, intentCancel);
+                    finish();
+                }
+            });
         }
     }
 }

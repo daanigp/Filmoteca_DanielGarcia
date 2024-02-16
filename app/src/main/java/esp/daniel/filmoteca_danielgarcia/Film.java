@@ -17,6 +17,7 @@ public class Film {
     public static int GENRE_HORROR = 4;
 
     //Propiedades de la clase
+    private int id;
     private int imageResId;
     private String title;
     private String director;
@@ -31,7 +32,8 @@ public class Film {
     }
 
     //Constructor por parámetros
-    public Film(int imageResId, String title, String director, int year, int genre, int format, String imdbURL, String comments) {
+    public Film(int id, int imageResId, String title, String director, int year, int genre, int format, String imdbURL, String comments) {
+        this.id = id;
         this.imageResId = imageResId;
         this.title = title;
         this.director = director;
@@ -62,6 +64,11 @@ public class Film {
     public int getGENRE_HORROR() {
         return GENRE_HORROR;
     }
+
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){this.id = id;}
 
     public int getImageResId() {
         return imageResId;
@@ -131,7 +138,8 @@ public class Film {
     @Override
     public String toString() {
         return "Film{" +
-                "imageResId=" + imageResId +
+                "id=" + id +
+                ", imageResId=" + imageResId +
                 ", title='" + title + '\'' +
                 ", director='" + director + '\'' +
                 ", year=" + year +
