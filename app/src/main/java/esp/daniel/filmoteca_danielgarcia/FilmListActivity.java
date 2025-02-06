@@ -17,17 +17,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class FilmListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -118,6 +121,10 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
             case R.id.itemSalir:
                 Intent intentSalir = new Intent(FilmListActivity.this, LoginActivity.class);
                 startActivity(intentSalir);
+                return true;
+
+            case R.id.itemAdddefaultFilms:
+                menuNumberDefaultFilms();
                 return true;
         }
 
@@ -356,6 +363,69 @@ public class FilmListActivity extends AppCompatActivity implements AdapterView.O
                 return Film.GENRE_SCIFI;
             default:
                 return Film.GENRE_HORROR;
+        }
+    }
+
+    private void menuNumberDefaultFilms() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Añadir películas por defecto");
+        builder.setMessage("¿Cuántas películas por defecto deseas añadir?");
+
+        final EditText input = new EditText(this);
+        input.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
+        builder.setView(input);
+
+        builder.setPositiveButton("Crear", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String filmsNum = input.getText().toString();
+                if (!filmsNum.isEmpty()) {
+                    int filmsNumber = Integer.parseInt(filmsNum);
+                    addDefaultFilms(filmsNumber);
+                } else {
+                    showToast("Introduce un número válido");
+                }
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showToast("¡TRANQUILO! No has creado ninguna película");
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void addDefaultFilms(int num) {
+        FilmDataSource.Inizialize();
+
+        ArrayList<Film> totalFilms = FilmDataSource.films;
+        Collections.shuffle(totalFilms);
+
+        for (int x = 0; x < num; x++) {
+            Film f = totalFilms.get(x);
+            if (filmExists(f)) {
+                num = num + 1;
+            } else {
+                f.setId(filmList.size());
+                insertFilmToBBDD(f);
+                filmList.add(f);
+            }
+        }
+
+        filmAdapter.notifyDataSetChanged();
+    }
+
+    private boolean filmExists(Film film) {
+        Cursor c = db.rawQuery("SELECT * FROM film WHERE Title = '" + film.getTitle() + "' AND Director = '" + film.getDirector() + "';", null);
+        if (c.getCount() != 0) {
+            c.close();
+            return true;
+        } else {
+            c.close();
+            return false;
         }
     }
 }

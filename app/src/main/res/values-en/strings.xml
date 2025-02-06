@@ -25,6 +25,7 @@
     <string name="datosUsuario">User data:</string>
     <string name="masInfo">More info</string>
     <string name="salir">Leave</string>
+    <string name="defaultFilms">Add default films</string>
 
     <string-array name="generos_array">
         <item>Action</item>
